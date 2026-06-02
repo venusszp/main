@@ -1,579 +1,392 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>venuszp | Главное меню</title>
-  <meta name="description" content="Главное меню venuszp с быстрым доступом к сайтам." />
-  <style>
-    :root {
-      --bg-a: #03050a;
-      --bg-b: #07101d;
-      --bg-c: #0d1728;
-      --card: rgba(255, 255, 255, 0.06);
-      --card-2: rgba(255, 255, 255, 0.09);
-      --line: rgba(255, 255, 255, 0.12);
-      --line-2: rgba(255, 255, 255, 0.22);
-      --text: #f5f8ff;
-      --muted: rgba(245, 248, 255, 0.72);
-      --muted-2: rgba(245, 248, 255, 0.52);
-      --glow: rgba(210, 228, 255, 0.18);
-      --shadow: 0 25px 90px rgba(0, 0, 0, 0.48);
-      --radius-xl: 30px;
-      --radius-lg: 24px;
-      --ease: cubic-bezier(.2,.8,.2,1);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VENUSZP • Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card-bg: #111111;
+            --text: #f5f5f5;
+            --muted: #888888;
+        }
 
-    * {
-      box-sizing: border-box;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    html {
-      scroll-behavior: smooth;
-    }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system_ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px 80px;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 12% 8%, rgba(255,255,255,0.16), transparent 18%),
-        radial-gradient(circle at 82% 14%, rgba(200,220,255,0.14), transparent 16%),
-        radial-gradient(circle at 70% 80%, rgba(255,255,255,0.08), transparent 20%),
-        linear-gradient(180deg, var(--bg-a), var(--bg-b) 48%, var(--bg-c));
-      overflow-x: hidden;
-    }
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255,255,255,0.03), transparent 55%),
+                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.025), transparent 55%);
+            z-index: -1;
+        }
 
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      inset: -20%;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08) 0 1px, transparent 1px),
-        radial-gradient(circle at 65% 35%, rgba(255,255,255,0.11) 0 1px, transparent 1px),
-        radial-gradient(circle at 45% 78%, rgba(255,255,255,0.08) 0 1px, transparent 1px),
-        radial-gradient(circle at 85% 15%, rgba(255,255,255,0.10) 0 1px, transparent 1px),
-        radial-gradient(circle at 78% 66%, rgba(255,255,255,0.09) 0 1px, transparent 1px);
-      background-size: 320px 320px;
-      opacity: 0.22;
-      animation: drift 26s linear infinite;
-    }
+        .container {
+            width: 100%;
+            max-width: 1180px;
+        }
 
-    body::after {
-      background-size: 420px 420px;
-      opacity: 0.12;
-      filter: blur(1px);
-      animation-duration: 38s;
-      animation-direction: reverse;
-    }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 70px;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
 
-    .wrap {
-      width: min(1180px, calc(100% - 28px));
-      margin: 0 auto;
-      padding: 28px 0 40px;
-      position: relative;
-    }
+        .header-left h1 {
+            font-size: 3.6rem;
+            font-weight: 900;
+            letter-spacing: -0.07em;
+            line-height: 1;
+            background: linear-gradient(90deg, #ffffff, #e0e0e0, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleShine 8s linear infinite;
+        }
 
-    .glow {
-      position: absolute;
-      inset: 0 auto auto 50%;
-      width: 620px;
-      height: 620px;
-      translate: -50% -20%;
-      background: radial-gradient(circle, rgba(255,255,255,0.14), transparent 60%);
-      filter: blur(8px);
-      opacity: 0.8;
-      pointer-events: none;
-    }
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 8px;
+            font-weight: 500;
+        }
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 16px 18px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(18px);
-      box-shadow: var(--shadow);
-      animation: rise 900ms var(--ease) both;
-    }
+        @keyframes titleShine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
+        /* ===== ПЕРЕКЛЮЧАТЕЛЬ (быстрый и красивый) ===== */
+        .toggle-group {
+            display: flex;
+            background: #161616;
+            padding: 5px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            position: relative;
+        }
 
-    .mark {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: #05070b;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(180,200,230,0.9));
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.24),
-        0 16px 40px rgba(255,255,255,0.12);
-      flex: none;
-    }
+        .toggle-btn {
+            padding: 14px 34px;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--muted);
+            background: transparent;
+            border: none;
+            transition: color 0.25s ease;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .brand h1 {
-      margin: 0;
-      font-size: clamp(1.05rem, 2vw, 1.3rem);
-      letter-spacing: 0.02em;
-      line-height: 1.1;
-    }
+        .toggle-btn:hover {
+            color: #ffffff;
+        }
 
-    .brand p {
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
+        .toggle-btn.active {
+            color: #111111;
+            font-weight: 700;
+        }
 
-    .pill {
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      color: var(--muted);
-      font-size: 0.88rem;
-      white-space: nowrap;
-    }
+        .toggle-slider {
+            position: absolute;
+            height: calc(100% - 10px);
+            width: 50%;
+            background: #ffffff;
+            border-radius: 9999px;
+            top: 5px;
+            left: 5px;
+            transition: left 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+            box-shadow: 0 0 18px rgba(255,255,255,0.45);
+            z-index: 1;
+        }
 
-    .hero {
-      padding: 68px 0 30px;
-      text-align: center;
-      position: relative;
-      animation: rise 900ms 120ms var(--ease) both;
-    }
+        /* ===== КАРТОЧКИ ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 24px;
+        }
 
-    .hero .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      margin-bottom: 18px;
-      border: 1px solid rgba(255,255,255,0.13);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      color: var(--muted);
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
-    }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.07);
+            padding: 38px 36px;
+            border-radius: 24px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .hero .eyebrow span {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(255,255,255,1), rgba(200,220,255,0.7));
-      box-shadow: 0 0 18px rgba(255,255,255,0.55);
-    }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
 
-    .hero h2 {
-      margin: 0;
-      font-size: clamp(2.8rem, 8vw, 6rem);
-      line-height: 0.92;
-      letter-spacing: -0.06em;
-      text-wrap: balance;
-      text-shadow: 0 0 40px rgba(255,255,255,0.12);
-    }
+        .card-icon {
+            font-size: 1.75rem;
+            color: #ffffff;
+            opacity: 0.85;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
 
-    .hero h2 em {
-      font-style: normal;
-      background: linear-gradient(135deg, #ffffff 0%, #dbe7ff 42%, #8fa8d8 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+        .card h3 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin: 0;
+        }
 
-    .hero p {
-      max-width: 60ch;
-      margin: 18px auto 0;
-      color: var(--muted);
-      font-size: 1.03rem;
-      line-height: 1.75;
-    }
+        .card p {
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 1.02rem;
+            margin-top: auto;
+        }
 
-    .section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 10px 0 18px;
-      animation: rise 900ms 200ms var(--ease) both;
-    }
+        /* === ПУЛЬСАЦИЯ СВЕЧЕНИЯ ПО КРАЯМ ПРИ НАВЕДЕНИИ === */
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 25px;
+            border: 1.5px solid transparent;
+            box-shadow: 0 0 0 0 rgba(255,255,255,0);
+            transition: all 0.45s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    .section-head h3 {
-      margin: 0;
-      font-size: 0.95rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--muted-2);
-    }
+        .card:hover {
+            transform: translateY(-14px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.75);
+            border-color: rgba(255,255,255,0.12);
+        }
 
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
+        .card:hover::after {
+            border-color: rgba(255,255,255,0.22);
+            box-shadow: 0 0 18px 5px rgba(255,255,255,0.35);
+            animation: edgeGlowPulse 2.3s ease-in-out infinite;
+        }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
-      padding-bottom: 12px;
-    }
+        .card:hover .card-icon {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
 
-    .card {
-      position: relative;
-      min-height: 255px;
-      padding: 20px;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035));
-      backdrop-filter: blur(18px);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transform: translateY(0) scale(1);
-      transition:
-        transform 260ms var(--ease),
-        border-color 260ms var(--ease),
-        background 260ms var(--ease),
-        box-shadow 260ms var(--ease);
-      animation: cardIn 780ms var(--ease) both;
-    }
+        @keyframes edgeGlowPulse {
+            0%, 100% {
+                box-shadow: 0 0 10px 3px rgba(255,255,255,0.28);
+                border-color: rgba(255,255,255,0.18);
+            }
+            50% {
+                box-shadow: 0 0 28px 8px rgba(255,255,255,0.55);
+                border-color: rgba(255,255,255,0.32);
+            }
+        }
 
-    .card:nth-child(1) { animation-delay: 120ms; }
-    .card:nth-child(2) { animation-delay: 190ms; }
-    .card:nth-child(3) { animation-delay: 260ms; }
-    .card:nth-child(4) { animation-delay: 330ms; }
-    .card:nth-child(5) { animation-delay: 400ms; }
+        /* === КРАСИВАЯ АНИМАЦИЯ ЗАПУСКА КАРТОЧКИ (при клике) === */
+        .card.is-launching {
+            animation: cardLaunch 1.15s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            pointer-events: none;
+        }
 
-    .card::before,
-    .card::after {
-      content: "";
-      position: absolute;
-      inset: auto;
-      pointer-events: none;
-      border-radius: 50%;
-      filter: blur(4px);
-      opacity: 0.7;
-    }
+        @keyframes cardLaunch {
+            0% {
+                box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+                transform: translateY(0) scale(1);
+            }
+            15% {
+                box-shadow: 0 0 0 4px rgba(255,255,255,0.35),
+                            0 45px 90px rgba(255,255,255,0.3);
+                transform: translateY(-10px) scale(1.035);
+            }
+            45% {
+                box-shadow: 0 0 0 12px rgba(255,255,255,0.22),
+                            0 70px 130px rgba(255,255,255,0.45);
+                transform: translateY(-16px) scale(1.02);
+            }
+            70% {
+                box-shadow: 0 0 80px 35px rgba(255,255,255,0.65);
+                transform: translateY(-8px) scale(0.985);
+            }
+            100% {
+                box-shadow: 0 0 110px 50px rgba(255,255,255,0.0);
+                transform: translateY(0) scale(0.94);
+                opacity: 0.15;
+            }
+        }
 
-    .card::before {
-      width: 180px;
-      height: 180px;
-      right: -60px;
-      top: -40px;
-      background: radial-gradient(circle, rgba(255,255,255,0.16), transparent 65%);
-    }
+        /* Адаптив */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.9rem; }
+            .toggle-btn { padding: 12px 26px; font-size: 0.88rem; }
+            .card { padding: 32px 28px; }
+            .card h3 { font-size: 1.7rem; }
+        }
 
-    .card::after {
-      width: 140px;
-      height: 140px;
-      left: -50px;
-      bottom: -40px;
-      background: radial-gradient(circle, rgba(210,228,255,0.12), transparent 65%);
-    }
-
-    .card:hover,
-    .card:focus-visible {
-      transform: translateY(-10px) scale(1.01);
-      border-color: rgba(255,255,255,0.3);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.045));
-      box-shadow:
-        0 30px 100px rgba(0, 0, 0, 0.56),
-        0 0 0 1px rgba(255,255,255,0.08) inset;
-      outline: none;
-    }
-
-    .card-top {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    .icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      font-size: 1.45rem;
-      color: #f8fbff;
-      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.12),
-        0 14px 28px rgba(0,0,0,0.25);
-    }
-
-    .chip {
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.03);
-      color: var(--muted);
-      font-size: 0.78rem;
-      white-space: nowrap;
-    }
-
-    .card h4,
-    .card p,
-    .meta {
-      position: relative;
-      z-index: 1;
-    }
-
-    .card h4 {
-      margin: 0;
-      font-size: 1.5rem;
-      letter-spacing: -0.03em;
-    }
-
-    .card p {
-      margin: 10px 0 18px;
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 0.96rem;
-    }
-
-    .meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: auto;
-      color: rgba(245,248,255,0.86);
-      font-size: 0.92rem;
-    }
-
-    .arrow {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.14);
-      transition: transform 260ms var(--ease), background 260ms var(--ease);
-    }
-
-    .card:hover .arrow,
-    .card:focus-visible .arrow {
-      transform: translate(4px, -2px);
-      background: rgba(255,255,255,0.14);
-    }
-
-    .footer {
-      margin-top: 20px;
-      text-align: center;
-      color: var(--muted-2);
-      font-size: 0.88rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      animation: rise 900ms 360ms var(--ease) both;
-    }
-
-    @keyframes rise {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes cardIn {
-      from {
-        opacity: 0;
-        transform: translateY(24px) scale(0.98);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    @keyframes drift {
-      from {
-        transform: translate3d(0, 0, 0) rotate(0deg);
-      }
-      to {
-        transform: translate3d(8%, 6%, 0) rotate(8deg);
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 700px) {
-      .wrap {
-        width: min(100% - 18px, 1180px);
-        padding-top: 14px;
-      }
-
-      .topbar {
-        border-radius: 26px;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .pill {
-        width: 100%;
-        text-align: center;
-      }
-
-      .hero {
-        padding: 44px 0 24px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .card {
-        min-height: 230px;
-      }
-
-      .section-head {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 6px;
-      }
-    }
-  </style>
+        @media (max-width: 480px) {
+            body { padding: 40px 16px; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="glow" aria-hidden="true"></div>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <h1>VENUSZP</h1>
+                <div class="subtitle">Единый портал</div>
+            </div>
 
-    <header class="topbar">
-      <div class="brand">
-        <div class="mark">VZ</div>
-        <div>
-          <h1>venuszp</h1>
-          <p>главное меню твоих сайтов</p>
+            <!-- Переключатель режимов открытия ссылок -->
+            <div class="toggle-group" id="toggleGroup">
+                <button class="toggle-btn active" data-mode="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>НОВОЕ ОКНО</span>
+                </button>
+                <button class="toggle-btn" data-mode="_self">
+                    <i class="fas fa-compress-alt"></i>
+                    <span>ВНУТРИ</span>
+                </button>
+                <div class="toggle-slider" id="slider"></div>
+            </div>
+        </header>
+
+        <!-- Сетка карточек -->
+        <div class="grid">
+            <!-- CHAT -->
+            <a href="https://chat.venuszp.xyz" class="card">
+                <div class="card-header">
+                    <i class="fas fa-comments card-icon"></i>
+                    <h3>CHAT</h3>
+                </div>
+                <p>Быстрый и удобный чат для общения и работы.</p>
+            </a>
+
+            <!-- MUSIC -->
+            <a href="https://music.venuszp.xyz" class="card">
+                <div class="card-header">
+                    <i class="fas fa-music card-icon"></i>
+                    <h3>MUSIC</h3>
+                </div>
+                <p>Качественный аудио-поток для фокуса и отдыха.</p>
+            </a>
+
+            <!-- CS COMMANDS -->
+            <a href="https://cs.venuszp.xyz" class="card">
+                <div class="card-header">
+                    <i class="fas fa-gamepad card-icon"></i>
+                    <h3>CS COMMANDS</h3>
+                </div>
+                <p>Полный справочник команд для Counter-Strike.</p>
+            </a>
+
+            <!-- TIMER -->
+            <a href="https://timer.venuszp.xyz" class="card">
+                <div class="card-header">
+                    <i class="fas fa-clock card-icon"></i>
+                    <h3>TIMER</h3>
+                </div>
+                <p>Точный и удобный инструмент контроля времени.</p>
+            </a>
+
+            <!-- FILES -->
+            <a href="https://file.venuszp.xyz" class="card">
+                <div class="card-header">
+                    <i class="fas fa-folder card-icon"></i>
+                    <h3>FILES</h3>
+                </div>
+                <p>Быстрый доступ к важным файлам и документам.</p>
+            </a>
+
+            <!-- VIDE -->
+            <a href="https://vide.venuszp.xyz" class="card">
+                <div class="card-header">
+                    <i class="fas fa-laptop-code card-icon"></i>
+                    <h3>VIDE</h3>
+                </div>
+                <p>Лёгкая IDE с мгновенной сборкой и превью.</p>
+            </a>
         </div>
-      </div>
-      <div class="pill">нажми на карточку, чтобы открыть</div>
-    </header>
-
-    <section class="hero">
-      <div class="eyebrow"><span></span>небесная чёрно-белая навигация</div>
-      <h2>Главное меню <em>venuszp</em></h2>
-      <p>Аккуратный вход в твои сервисы: чат, музыка, команды для CS, таймер и важный файл. Всё открывается по нажатию и выглядит как цельная космическая панель.</p>
-    </section>
-
-    <div class="section-head">
-      <div>
-        <h3>сайты</h3>
-        <p>выбирай нужный раздел.</p>
-      </div>
     </div>
 
-    <section class="grid" aria-label="Ссылки на сайты venuszp">
-      <a class="card" href="https://chat.venuszp.xyz" target="_blank" rel="noopener noreferrer">
-        <div class="card-top">
-          <div class="icon">💬</div>
-          <div class="chip">chat</div>
-        </div>
-        <div>
-          <h4>Единый чат</h4>
-          <p>Быстрый доступ к общению без лишних шагов. Лёгкий вход и чистый интерфейс.</p>
-        </div>
-        <div class="meta">
-          <span>chat.venuszp.xyz</span>
-          <span class="arrow">↗</span>
-        </div>
-      </a>
+    <script>
+        // === Логика переключателя (НОВОЕ ОКНО / ВНУТРИ) ===
+        let mode = "_blank";
+        const slider = document.getElementById('slider');
+        const buttons = document.querySelectorAll('.toggle-btn');
 
-      <a class="card" href="https://music.venuszp.xyz" target="_blank" rel="noopener noreferrer">
-        <div class="card-top">
-          <div class="icon">🎵</div>
-          <div class="chip">music</div>
-        </div>
-        <div>
-          <h4>Плейлист</h4>
-          <p>Музыкальный проигрыватель и плейлист в одном месте. Включай и оставляй в фоне.</p>
-        </div>
-        <div class="meta">
-          <span>music.venuszp.xyz</span>
-          <span class="arrow">↗</span>
-        </div>
-      </a>
+        buttons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                mode = btn.dataset.mode;
 
-      <a class="card" href="https://cs.venuszp.xyz" target="_blank" rel="noopener noreferrer">
-        <div class="card-top">
-          <div class="icon">🎮</div>
-          <div class="chip">cs</div>
-        </div>
-        <div>
-          <h4>Команды для CS</h4>
-          <p>Справочник по командам для CS, чтобы нужное всегда было под рукой.</p>
-        </div>
-        <div class="meta">
-          <span>cs.venuszp.xyz</span>
-          <span class="arrow">↗</span>
-        </div>
-      </a>
+                if (index === 0) {
+                    slider.style.left = '5px';
+                } else {
+                    slider.style.left = 'calc(50% + 2.5px)';
+                }
+            });
+        });
 
-      <a class="card" href="https://timer.venuszp.xyz" target="_blank" rel="noopener noreferrer">
-        <div class="card-top">
-          <div class="icon">⏱</div>
-          <div class="chip">timer</div>
-        </div>
-        <div>
-          <h4>Таймер</h4>
-          <p>Простой таймер для быстрых задач и контроля времени с удобным запуском.</p>
-        </div>
-        <div class="meta">
-          <span>timer.venuszp.xyz</span>
-          <span class="arrow">↗</span>
-        </div>
-      </a>
+        // === КРАСИВАЯ АНИМАЦИЯ ЗАПУСКА ПРИ КЛИКЕ НА КАРТОЧКУ ===
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.getAttribute('href');
 
-      <a class="card" href="https://file.venuszp.xyz" target="_blank" rel="noopener noreferrer">
-        <div class="card-top">
-          <div class="icon">📁</div>
-          <div class="chip">file</div>
-        </div>
-        <div>
-          <h4>Важный файл</h4>
-          <p>Отдельный быстрый доступ к важному файлу без поиска и лишних переходов.</p>
-        </div>
-        <div class="meta">
-          <span>file.venuszp.xyz</span>
-          <span class="arrow">↗</span>
-        </div>
-      </a>
-    </section>
+                // Добавляем класс анимации запуска
+                this.classList.add('is-launching');
 
-    <div class="footer">venuszp</div>
-  </main>
+                // После завершения анимации (на пике свечения) открываем ссылку
+                setTimeout(() => {
+                    window.open(url, mode);
+
+                    // Убираем класс анимации (на случай, если вкладка осталась открытой)
+                    setTimeout(() => {
+                        this.classList.remove('is-launching');
+                    }, 400);
+                }, 1100);
+            });
+        });
+    </script>
 </body>
 </html>
