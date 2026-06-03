@@ -1,392 +1,807 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VENUSZP • Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <style>
-        :root {
-            --bg: #0a0a0a;
-            --card-bg: #111111;
-            --text: #f5f5f5;
-            --muted: #888888;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VENUSZP • Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060608;
+  --surface: #0d0d12;
+  --surface2: #12121a;
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.18);
+  --text: #f0f0f8;
+  --muted: #56566a;
+  --muted2: #3a3a50;
+  --accent: #ffffff;
+  --glow-1: rgba(140,120,255,0.18);
+  --glow-2: rgba(80,200,180,0.12);
+  --glow-3: rgba(255,100,150,0.10);
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', system_ui, -apple-system, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 60px 20px 80px;
-            position: relative;
-            overflow-x: hidden;
-        }
+@keyframes bgDrift {
+  0%   { transform: translate(0,0) scale(1); }
+  33%  { transform: translate(30px,-20px) scale(1.08); }
+  66%  { transform: translate(-20px,30px) scale(0.96); }
+  100% { transform: translate(0,0) scale(1); }
+}
+@keyframes bgDrift2 {
+  0%   { transform: translate(0,0) scale(1.05); }
+  50%  { transform: translate(-40px,25px) scale(0.95); }
+  100% { transform: translate(0,0) scale(1.05); }
+}
+@keyframes orb1 {
+  0%,100% { opacity: 0.6; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.15); }
+}
+@keyframes orb2 {
+  0%,100% { opacity: 0.45; transform: scale(1.1) translate(0,0); }
+  50%      { opacity: 0.8; transform: scale(0.9) translate(20px,-10px); }
+}
+@keyframes titleReveal {
+  from { opacity: 0; letter-spacing: 0.3em; filter: blur(12px); }
+  to   { opacity: 1; letter-spacing: -0.06em; filter: blur(0); }
+}
+@keyframes subtitleReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes shimmerSweep {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(300%) skewX(-15deg); }
+}
+@keyframes borderGlow {
+  0%,100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+@keyframes iconFloat {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+@keyframes launchBurst {
+  0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); filter: brightness(1); }
+  25%  { transform: scale(1.04) translateY(-8px); box-shadow: 0 0 40px 10px rgba(255,255,255,0.25), 0 20px 60px rgba(255,255,255,0.15); filter: brightness(1.3); }
+  55%  { transform: scale(1.01) translateY(-5px); box-shadow: 0 0 80px 30px rgba(255,255,255,0.4), 0 30px 100px rgba(255,255,255,0.3); filter: brightness(1.6); }
+  80%  { transform: scale(0.96); box-shadow: 0 0 120px 60px rgba(255,255,255,0.6); filter: brightness(2); }
+  100% { transform: scale(0.9); box-shadow: 0 0 200px 100px rgba(255,255,255,0); opacity: 0; filter: brightness(3); }
+}
+@keyframes rippleOut {
+  0%   { transform: scale(0.5); opacity: 0.8; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+@keyframes scanLine {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+@keyframes toggleSlide {
+  from { left: var(--from); }
+  to   { left: var(--to); }
+}
+@keyframes counterCount {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-        body::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(circle at 30% 20%, rgba(255,255,255,0.03), transparent 55%),
-                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.025), transparent 55%);
-            z-index: -1;
-        }
+html { scroll-behavior: smooth; }
 
-        .container {
-            width: 100%;
-            max-width: 1180px;
-        }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 24px 100px;
+  overflow-x: hidden;
+  position: relative;
+}
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 70px;
-            flex-wrap: wrap;
-            gap: 24px;
-        }
+/* ── LAYERED AMBIENT BACKGROUND ── */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+}
+.bg-orb-1 {
+  width: 700px; height: 700px;
+  top: -180px; left: -120px;
+  background: radial-gradient(circle, rgba(100,80,220,0.22) 0%, transparent 70%);
+  animation: orb1 12s ease-in-out infinite;
+}
+.bg-orb-2 {
+  width: 600px; height: 600px;
+  bottom: -100px; right: -100px;
+  background: radial-gradient(circle, rgba(50,190,160,0.18) 0%, transparent 70%);
+  animation: orb2 15s ease-in-out infinite;
+}
+.bg-orb-3 {
+  width: 450px; height: 450px;
+  top: 40%; left: 55%;
+  background: radial-gradient(circle, rgba(220,80,120,0.12) 0%, transparent 70%);
+  animation: orb1 18s ease-in-out infinite reverse;
+}
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+}
+.scan-line {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  animation: scanLine 8s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+}
 
-        .header-left h1 {
-            font-size: 3.6rem;
-            font-weight: 900;
-            letter-spacing: -0.07em;
-            line-height: 1;
-            background: linear-gradient(90deg, #ffffff, #e0e0e0, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: titleShine 8s linear infinite;
-        }
+/* ── CONTAINER ── */
+.container { width: 100%; max-width: 1200px; }
 
-        .subtitle {
-            font-size: 0.95rem;
-            color: var(--muted);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-top: 8px;
-            font-weight: 500;
-        }
+/* ── HEADER ── */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 72px;
+  flex-wrap: wrap;
+  gap: 28px;
+}
 
-        @keyframes titleShine {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
+.header-left { position: relative; }
 
-        /* ===== ПЕРЕКЛЮЧАТЕЛЬ (быстрый и красивый) ===== */
-        .toggle-group {
-            display: flex;
-            background: #161616;
-            padding: 5px;
-            border-radius: 9999px;
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            position: relative;
-        }
+.logo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--muted2);
+  padding: 5px 12px;
+  border-radius: 99px;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: subtitleReveal 0.6s ease 0.3s forwards;
+}
+.logo-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+  flex-shrink: 0;
+}
 
-        .toggle-btn {
-            padding: 14px 34px;
-            border-radius: 9999px;
-            cursor: pointer;
-            font-size: 0.92rem;
-            font-weight: 600;
-            color: var(--muted);
-            background: transparent;
-            border: none;
-            transition: color 0.25s ease;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+h1 {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  background: linear-gradient(135deg, #ffffff 0%, #c0c0d0 40%, #ffffff 60%, #a0a0c0 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleReveal 0.9s cubic-bezier(0.23,1,0.32,1) 0.1s both;
+}
 
-        .toggle-btn:hover {
-            color: #ffffff;
-        }
+.subtitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-top: 14px;
+  opacity: 0;
+  animation: subtitleReveal 0.6s ease 0.5s forwards;
+}
+.subtitle::before,
+.subtitle::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--muted2));
+  max-width: 40px;
+}
+.subtitle::after {
+  background: linear-gradient(90deg, var(--muted2), transparent);
+}
 
-        .toggle-btn.active {
-            color: #111111;
-            font-weight: 700;
-        }
+/* ── TOGGLE ── */
+.toggle-wrap {
+  opacity: 0;
+  animation: subtitleReveal 0.6s ease 0.7s forwards;
+}
+.toggle-group {
+  display: flex;
+  background: var(--surface2);
+  padding: 5px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  position: relative;
+  gap: 2px;
+}
+.toggle-btn {
+  padding: 12px 28px;
+  border-radius: 99px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  transition: color 0.25s ease;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.toggle-btn:hover { color: var(--text); }
+.toggle-btn.active { color: #0a0a12; font-weight: 700; }
+.toggle-slider {
+  position: absolute;
+  height: calc(100% - 10px);
+  background: #ffffff;
+  border-radius: 99px;
+  top: 5px;
+  transition: left 0.4s cubic-bezier(0.32,0.72,0,1), width 0.4s cubic-bezier(0.32,0.72,0,1);
+  box-shadow: 0 0 25px rgba(255,255,255,0.5), 0 0 60px rgba(255,255,255,0.2);
+  z-index: 1;
+}
 
-        .toggle-slider {
-            position: absolute;
-            height: calc(100% - 10px);
-            width: 50%;
-            background: #ffffff;
-            border-radius: 9999px;
-            top: 5px;
-            left: 5px;
-            transition: left 0.38s cubic-bezier(0.32, 0.72, 0, 1);
-            box-shadow: 0 0 18px rgba(255,255,255,0.45);
-            z-index: 1;
-        }
+/* ── GRID ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
 
-        /* ===== КАРТОЧКИ ===== */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-            gap: 24px;
-        }
+/* ── CARD ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 40px 38px;
+  border-radius: 28px;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.55s cubic-bezier(0.23,1,0.32,1),
+              border-color 0.4s ease,
+              background 0.4s ease;
+  opacity: 0;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+/* shimmer sweep */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -60%;
+  width: 50%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+  transform: skewX(-15deg);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.card:hover::after {
+  opacity: 1;
+  animation: shimmerSweep 1.2s ease forwards;
+}
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.07);
-            padding: 38px 36px;
-            border-radius: 24px;
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
+/* glow ring overlay */
+.card-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 30px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.card:hover .card-glow { opacity: 1; animation: borderGlow 2.5s ease-in-out infinite; }
 
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 18px;
-        }
+/* noise grain on card */
+.card-grain {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
 
-        .card-icon {
-            font-size: 1.75rem;
-            color: #ffffff;
-            opacity: 0.85;
-            transition: transform 0.4s ease, opacity 0.4s ease;
-        }
+.card-content { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; }
 
-        .card h3 {
-            font-size: 1.85rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin: 0;
-        }
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 20px;
+}
 
-        .card p {
-            color: var(--muted);
-            line-height: 1.7;
-            font-size: 1.02rem;
-            margin-top: auto;
-        }
+.card-icon-wrap {
+  width: 52px; height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.card-icon-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
+  background: inherit;
+  filter: blur(20px);
+  transform: scale(1.5);
+  opacity: 0.4;
+}
+.card-icon {
+  font-size: 1.55rem;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s ease;
+}
+.card:hover .card-icon-wrap {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(255,255,255,0.15);
+}
+.card:hover .card-icon {
+  animation: iconFloat 2s ease-in-out infinite;
+}
 
-        /* === ПУЛЬСАЦИЯ СВЕЧЕНИЯ ПО КРАЯМ ПРИ НАВЕДЕНИИ === */
-        .card::after {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 25px;
-            border: 1.5px solid transparent;
-            box-shadow: 0 0 0 0 rgba(255,255,255,0);
-            transition: all 0.45s ease;
-            pointer-events: none;
-            z-index: 1;
-        }
+.card-title-wrap { display: flex; flex-direction: column; gap: 3px; }
+.card-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.card h3 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
 
-        .card:hover {
-            transform: translateY(-14px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.75);
-            border-color: rgba(255,255,255,0.12);
-        }
+.card-desc {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 0.98rem;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
 
-        .card:hover::after {
-            border-color: rgba(255,255,255,0.22);
-            box-shadow: 0 0 18px 5px rgba(255,255,255,0.35);
-            animation: edgeGlowPulse 2.3s ease-in-out infinite;
-        }
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+.card-arrow {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+  transition: all 0.35s ease;
+}
+.card:hover .card-arrow {
+  border-color: rgba(255,255,255,0.3);
+  color: var(--text);
+  transform: translate(3px, -3px);
+}
+.card-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted2);
+  letter-spacing: 0.08em;
+}
 
-        .card:hover .card-icon {
-            opacity: 1;
-            transform: translateY(-2px);
-        }
+/* Card hover state */
+.card:hover {
+  transform: translateY(-16px) scale(1.015);
+  border-color: rgba(255,255,255,0.14);
+  background: #0f0f18;
+}
+.card:hover::before { opacity: 1; }
 
-        @keyframes edgeGlowPulse {
-            0%, 100% {
-                box-shadow: 0 0 10px 3px rgba(255,255,255,0.28);
-                border-color: rgba(255,255,255,0.18);
-            }
-            50% {
-                box-shadow: 0 0 28px 8px rgba(255,255,255,0.55);
-                border-color: rgba(255,255,255,0.32);
-            }
-        }
+/* Color variants per card */
+.card-chat   .card-icon-wrap { background: linear-gradient(135deg, #1a1a3a, #2a1a4a); }
+.card-music  .card-icon-wrap { background: linear-gradient(135deg, #1a2a1a, #0a2a20); }
+.card-cs     .card-icon-wrap { background: linear-gradient(135deg, #2a1a1a, #3a1a0a); }
+.card-timer  .card-icon-wrap { background: linear-gradient(135deg, #1a1a2a, #1a2a3a); }
+.card-files  .card-icon-wrap { background: linear-gradient(135deg, #2a2a0a, #1a2a0a); }
+.card-vide   .card-icon-wrap { background: linear-gradient(135deg, #2a0a2a, #1a0a3a); }
 
-        /* === КРАСИВАЯ АНИМАЦИЯ ЗАПУСКА КАРТОЧКИ (при клике) === */
-        .card.is-launching {
-            animation: cardLaunch 1.15s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-            pointer-events: none;
-        }
+.card-chat  .card-glow { background: radial-gradient(ellipse at center, rgba(120,80,255,0.35), transparent 70%); }
+.card-music .card-glow { background: radial-gradient(ellipse at center, rgba(60,200,130,0.3), transparent 70%); }
+.card-cs    .card-glow { background: radial-gradient(ellipse at center, rgba(255,120,60,0.28), transparent 70%); }
+.card-timer .card-glow { background: radial-gradient(ellipse at center, rgba(80,160,255,0.28), transparent 70%); }
+.card-files .card-glow { background: radial-gradient(ellipse at center, rgba(200,200,60,0.25), transparent 70%); }
+.card-vide  .card-glow { background: radial-gradient(ellipse at center, rgba(200,60,200,0.28), transparent 70%); }
 
-        @keyframes cardLaunch {
-            0% {
-                box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-                transform: translateY(0) scale(1);
-            }
-            15% {
-                box-shadow: 0 0 0 4px rgba(255,255,255,0.35),
-                            0 45px 90px rgba(255,255,255,0.3);
-                transform: translateY(-10px) scale(1.035);
-            }
-            45% {
-                box-shadow: 0 0 0 12px rgba(255,255,255,0.22),
-                            0 70px 130px rgba(255,255,255,0.45);
-                transform: translateY(-16px) scale(1.02);
-            }
-            70% {
-                box-shadow: 0 0 80px 35px rgba(255,255,255,0.65);
-                transform: translateY(-8px) scale(0.985);
-            }
-            100% {
-                box-shadow: 0 0 110px 50px rgba(255,255,255,0.0);
-                transform: translateY(0) scale(0.94);
-                opacity: 0.15;
-            }
-        }
+.card-chat  .card-icon { color: #a78bfa; }
+.card-music .card-icon { color: #4ade80; }
+.card-cs    .card-icon { color: #fb923c; }
+.card-timer .card-icon { color: #60a5fa; }
+.card-files .card-icon { color: #facc15; }
+.card-vide  .card-icon { color: #e879f9; }
 
-        /* Адаптив */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.9rem; }
-            .toggle-btn { padding: 12px 26px; font-size: 0.88rem; }
-            .card { padding: 32px 28px; }
-            .card h3 { font-size: 1.7rem; }
-        }
+/* Launch animation */
+.card.launching {
+  pointer-events: none;
+  animation: launchBurst 1.2s cubic-bezier(0.23,1,0.32,1) forwards;
+}
+.ripple {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  border: 2px solid rgba(255,255,255,0.6);
+  animation: rippleOut 1s ease forwards;
+  top: 0; left: 0;
+  z-index: 10;
+  pointer-events: none;
+}
 
-        @media (max-width: 480px) {
-            body { padding: 40px 16px; }
-            .grid { grid-template-columns: 1fr; }
-        }
-    </style>
+/* ── FOOTER ── */
+.footer {
+  margin-top: 80px;
+  text-align: center;
+  opacity: 0;
+  animation: subtitleReveal 0.6s ease 1.2s forwards;
+}
+.footer-line {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--muted2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.footer-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.footer-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--muted2);
+}
+
+/* Card entrance delays */
+.card:nth-child(1) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 0.55s forwards; }
+.card:nth-child(2) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 0.65s forwards; }
+.card:nth-child(3) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 0.75s forwards; }
+.card:nth-child(4) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 0.85s forwards; }
+.card:nth-child(5) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 0.95s forwards; }
+.card:nth-child(6) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 1.05s forwards; }
+
+@media (max-width: 768px) {
+  header { margin-bottom: 48px; }
+  h1 { font-size: 3rem; }
+  .toggle-btn { padding: 10px 20px; font-size: 0.78rem; }
+  .card { padding: 32px 28px; }
+}
+@media (max-width: 480px) {
+  body { padding: 40px 16px 80px; }
+  .grid { grid-template-columns: 1fr; gap: 16px; }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-left">
-                <h1>VENUSZP</h1>
-                <div class="subtitle">Единый портал</div>
-            </div>
 
-            <!-- Переключатель режимов открытия ссылок -->
-            <div class="toggle-group" id="toggleGroup">
-                <button class="toggle-btn active" data-mode="_blank">
-                    <i class="fas fa-external-link-alt"></i>
-                    <span>НОВОЕ ОКНО</span>
-                </button>
-                <button class="toggle-btn" data-mode="_self">
-                    <i class="fas fa-compress-alt"></i>
-                    <span>ВНУТРИ</span>
-                </button>
-                <div class="toggle-slider" id="slider"></div>
-            </div>
-        </header>
+<!-- Ambient Background -->
+<div class="bg-layer">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+</div>
+<div class="bg-grid"></div>
+<div class="scan-line"></div>
 
-        <!-- Сетка карточек -->
-        <div class="grid">
-            <!-- CHAT -->
-            <a href="https://chat.venuszp.xyz" class="card">
-                <div class="card-header">
-                    <i class="fas fa-comments card-icon"></i>
-                    <h3>CHAT</h3>
-                </div>
-                <p>Быстрый и удобный чат для общения и работы.</p>
-            </a>
-
-            <!-- MUSIC -->
-            <a href="https://music.venuszp.xyz" class="card">
-                <div class="card-header">
-                    <i class="fas fa-music card-icon"></i>
-                    <h3>MUSIC</h3>
-                </div>
-                <p>Качественный аудио-поток для фокуса и отдыха.</p>
-            </a>
-
-            <!-- CS COMMANDS -->
-            <a href="https://cs.venuszp.xyz" class="card">
-                <div class="card-header">
-                    <i class="fas fa-gamepad card-icon"></i>
-                    <h3>CS COMMANDS</h3>
-                </div>
-                <p>Полный справочник команд для Counter-Strike.</p>
-            </a>
-
-            <!-- TIMER -->
-            <a href="https://timer.venuszp.xyz" class="card">
-                <div class="card-header">
-                    <i class="fas fa-clock card-icon"></i>
-                    <h3>TIMER</h3>
-                </div>
-                <p>Точный и удобный инструмент контроля времени.</p>
-            </a>
-
-            <!-- FILES -->
-            <a href="https://file.venuszp.xyz" class="card">
-                <div class="card-header">
-                    <i class="fas fa-folder card-icon"></i>
-                    <h3>FILES</h3>
-                </div>
-                <p>Быстрый доступ к важным файлам и документам.</p>
-            </a>
-
-            <!-- VIDE -->
-            <a href="https://vide.venuszp.xyz" class="card">
-                <div class="card-header">
-                    <i class="fas fa-laptop-code card-icon"></i>
-                    <h3>VIDE</h3>
-                </div>
-                <p>Лёгкая IDE с мгновенной сборкой и превью.</p>
-            </a>
-        </div>
+<div class="container">
+  <header>
+    <div class="header-left">
+      <div class="logo-badge">v2.0 • online</div>
+      <h1>VENUSZP</h1>
+      <div class="subtitle">Единый портал</div>
     </div>
 
-    <script>
-        // === Логика переключателя (НОВОЕ ОКНО / ВНУТРИ) ===
-        let mode = "_blank";
-        const slider = document.getElementById('slider');
-        const buttons = document.querySelectorAll('.toggle-btn');
+    <div class="toggle-wrap">
+      <div class="toggle-group" id="toggleGroup">
+        <button class="toggle-btn active" data-mode="_blank" id="btn0">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          Новое окно
+        </button>
+        <button class="toggle-btn" data-mode="_self" id="btn1">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3M21 8V5a2 2 0 00-2-2h-3M3 16v3a2 2 0 002 2h3M16 21h3a2 2 0 002-2v-3"/></svg>
+          Внутри
+        </button>
+        <div class="toggle-slider" id="slider"></div>
+      </div>
+    </div>
+  </header>
 
-        buttons.forEach((btn, index) => {
-            btn.addEventListener('click', () => {
-                buttons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                mode = btn.dataset.mode;
+  <div class="grid">
+    <!-- CHAT -->
+    <a href="https://chat.venuszp.xyz" class="card card-chat">
+      <div class="card-glow"></div>
+      <div class="card-grain"></div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <div class="card-title-wrap">
+            <span class="card-tag">Общение</span>
+            <h3>CHAT</h3>
+          </div>
+        </div>
+        <p class="card-desc">Быстрый и удобный чат для общения и совместной работы в реальном времени.</p>
+        <div class="card-footer">
+          <span class="card-num">01</span>
+          <div class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
 
-                if (index === 0) {
-                    slider.style.left = '5px';
-                } else {
-                    slider.style.left = 'calc(50% + 2.5px)';
-                }
-            });
-        });
+    <!-- MUSIC -->
+    <a href="https://music.venuszp.xyz" class="card card-music">
+      <div class="card-glow"></div>
+      <div class="card-grain"></div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zm12-2a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div class="card-title-wrap">
+            <span class="card-tag">Аудио</span>
+            <h3>MUSIC</h3>
+          </div>
+        </div>
+        <p class="card-desc">Качественный аудио-поток. Идеальный звук для фокуса, работы и отдыха.</p>
+        <div class="card-footer">
+          <span class="card-num">02</span>
+          <div class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
 
-        // === КРАСИВАЯ АНИМАЦИЯ ЗАПУСКА ПРИ КЛИКЕ НА КАРТОЧКУ ===
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                const url = this.getAttribute('href');
+    <!-- CS COMMANDS -->
+    <a href="https://cs.venuszp.xyz" class="card card-cs">
+      <div class="card-glow"></div>
+      <div class="card-grain"></div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3l4 6H9l4-6zm-2 6L6 3M15 3l3 6"/></svg>
+          </div>
+          <div class="card-title-wrap">
+            <span class="card-tag">Игры</span>
+            <h3>CS CMDS</h3>
+          </div>
+        </div>
+        <p class="card-desc">Полный справочник команд Counter-Strike. Быстрый поиск и копирование.</p>
+        <div class="card-footer">
+          <span class="card-num">03</span>
+          <div class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
 
-                // Добавляем класс анимации запуска
-                this.classList.add('is-launching');
+    <!-- TIMER -->
+    <a href="https://timer.venuszp.xyz" class="card card-timer">
+      <div class="card-glow"></div>
+      <div class="card-grain"></div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 3M12 5V3M10 3h4"/></svg>
+          </div>
+          <div class="card-title-wrap">
+            <span class="card-tag">Продуктивность</span>
+            <h3>TIMER</h3>
+          </div>
+        </div>
+        <p class="card-desc">Точный инструмент контроля времени. Таймер, секундомер и интервалы.</p>
+        <div class="card-footer">
+          <span class="card-num">04</span>
+          <div class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
 
-                // После завершения анимации (на пике свечения) открываем ссылку
-                setTimeout(() => {
-                    window.open(url, mode);
+    <!-- FILES -->
+    <a href="https://file.venuszp.xyz" class="card card-files">
+      <div class="card-glow"></div>
+      <div class="card-grain"></div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          </div>
+          <div class="card-title-wrap">
+            <span class="card-tag">Хранилище</span>
+            <h3>FILES</h3>
+          </div>
+        </div>
+        <p class="card-desc">Быстрый доступ к важным файлам и документам. Всё в одном месте.</p>
+        <div class="card-footer">
+          <span class="card-num">05</span>
+          <div class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
 
-                    // Убираем класс анимации (на случай, если вкладка осталась открытой)
-                    setTimeout(() => {
-                        this.classList.remove('is-launching');
-                    }, 400);
-                }, 1100);
-            });
-        });
-    </script>
+    <!-- VIDE -->
+    <a href="https://vide.venuszp.xyz" class="card card-vide">
+      <div class="card-glow"></div>
+      <div class="card-grain"></div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="card-title-wrap">
+            <span class="card-tag">IDE</span>
+            <h3>VIDE</h3>
+          </div>
+        </div>
+        <p class="card-desc">Лёгкая IDE с мгновенной сборкой и превью прямо в браузере.</p>
+        <div class="card-footer">
+          <span class="card-num">06</span>
+          <div class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="footer">
+    <div class="footer-line">venuszp systems • all services online</div>
+    <div class="footer-dots">
+      <div class="footer-dot"></div>
+      <div class="footer-dot" style="opacity:0.5"></div>
+      <div class="footer-dot" style="opacity:0.3"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Toggle logic
+let mode = "_blank";
+const slider = document.getElementById('slider');
+const btns = document.querySelectorAll('.toggle-btn');
+
+function updateSlider(activeBtn) {
+  const grp = document.getElementById('toggleGroup');
+  const grpRect = grp.getBoundingClientRect();
+  const btnRect = activeBtn.getBoundingClientRect();
+  slider.style.left = (btnRect.left - grpRect.left - 5) + 'px';
+  slider.style.width = (btnRect.width + 10) + 'px';
+}
+
+// Init slider position
+setTimeout(() => updateSlider(btns[0]), 50);
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.toggle-btn.active');
+  if (active) updateSlider(active);
+});
+
+btns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    mode = btn.dataset.mode;
+    updateSlider(btn);
+  });
+});
+
+// Card click with launch animation
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (this.classList.contains('launching')) return;
+
+    const url = this.getAttribute('href');
+
+    // Add ripple
+    const ripple = document.createElement('div');
+    ripple.className = 'ripple';
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 1100);
+
+    // Launch
+    this.classList.add('launching');
+
+    setTimeout(() => {
+      window.open(url, mode);
+      setTimeout(() => {
+        this.classList.remove('launching');
+      }, 500);
+    }, 1100);
+  });
+
+  // Tilt on mouse move
+  card.addEventListener('mousemove', function(e) {
+    const rect = this.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / (rect.width / 2);
+    const dy = (e.clientY - cy) / (rect.height / 2);
+    this.style.transform = `translateY(-16px) scale(1.015) perspective(600px) rotateX(${-dy * 4}deg) rotateY(${dx * 4}deg)`;
+  });
+  card.addEventListener('mouseleave', function() {
+    this.style.transform = '';
+  });
+});
+</script>
 </body>
 </html>
