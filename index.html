@@ -17,9 +17,191 @@
   --muted: #56566a;
   --muted2: #3a3a50;
   --accent: #ffffff;
-  --glow-1: rgba(140,120,255,0.18);
-  --glow-2: rgba(80,200,180,0.12);
-  --glow-3: rgba(255,100,150,0.10);
+}
+
+[data-theme="liquid-glass"] {
+  --bg: #080818;
+  --surface: rgba(13,13,18,0.6);
+  --surface2: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.2);
+  --text: #e8e8ff;
+  --muted: #7878bb;
+  --muted2: #555580;
+  --accent: #ffffff;
+}
+[data-theme="liquid-glass"] body {
+  background: linear-gradient(135deg, #06060e 0%, #0a0a1a 50%, #06060e 100%);
+}
+[data-theme="liquid-glass"] .card {
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  background: rgba(13,13,18,0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.15),
+    inset 0 -1px 1px rgba(0,0,0,0.4),
+    0 20px 40px rgba(0,0,0,0.6);
+  transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+}
+[data-theme="liquid-glass"] .card:hover {
+  background: rgba(18,18,26,0.7);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.2),
+    inset 0 -1px 1px rgba(0,0,0,0.4),
+    0 20px 50px rgba(0,0,0,0.7),
+    0 0 30px rgba(255,255,255,0.03);
+}
+[data-theme="liquid-glass"] .card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+[data-theme="liquid-glass"] .toggle-group {
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  background: rgba(13,13,18,0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.15),
+    inset 0 -1px 1px rgba(0,0,0,0.4),
+    0 20px 40px rgba(0,0,0,0.6);
+}
+[data-theme="liquid-glass"] .toggle-slider {
+  background: rgba(255,255,255,0.12);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.2),
+    inset 0 -1px 1px rgba(0,0,0,0.4);
+}
+[data-theme="liquid-glass"] .auth-overlay {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+}
+[data-theme="liquid-glass"] .auth-modal {
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  background: rgba(13,13,18,0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.15),
+    inset 0 -1px 1px rgba(0,0,0,0.4),
+    0 30px 60px rgba(0,0,0,0.7);
+  transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+}
+[data-theme="liquid-glass"] .auth-modal:focus-within {
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.2),
+    inset 0 -1px 1px rgba(0,0,0,0.4),
+    0 30px 60px rgba(0,0,0,0.7),
+    0 0 40px rgba(255,255,255,0.04);
+}
+[data-theme="liquid-glass"] .auth-modal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+[data-theme="liquid-glass"] .admin-overlay {
+  background: rgba(6,6,14,0.85);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+}
+[data-theme="liquid-glass"] .stat-card {
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  background: rgba(13,13,18,0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.15),
+    inset 0 -1px 1px rgba(0,0,0,0.4),
+    0 20px 40px rgba(0,0,0,0.6);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+}
+[data-theme="liquid-glass"] .stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+[data-theme="liquid-glass"] .stat-card:hover {
+  background: rgba(18,18,26,0.7);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.2),
+    inset 0 -1px 1px rgba(0,0,0,0.4),
+    0 20px 50px rgba(0,0,0,0.7),
+    0 0 30px rgba(255,255,255,0.03);
+  transform: translateY(-3px);
+}
+[data-theme="liquid-glass"] .admin-table-wrap {
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  background: rgba(13,13,18,0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.15),
+    inset 0 -1px 1px rgba(0,0,0,0.4),
+    0 20px 40px rgba(0,0,0,0.6);
+  transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+}
+[data-theme="liquid-glass"] .admin-table th {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+}
+[data-theme="liquid-glass"] .admin-table tr:hover td {
+  background: rgba(255,255,255,0.04);
+  transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+}
+[data-theme="liquid-glass"] .auth-submit {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.15),
+    inset 0 -1px 1px rgba(0,0,0,0.4);
+  transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+}
+[data-theme="liquid-glass"] .auth-submit:hover {
+  background: rgba(255,255,255,0.1);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.25),
+    inset 0 -1px 1px rgba(0,0,0,0.4),
+    0 8px 30px rgba(0,0,0,0.4),
+    0 0 20px rgba(255,255,255,0.03);
+}
+[data-theme="liquid-glass"] .admin-btn,
+[data-theme="liquid-glass"] .theme-btn,
+[data-theme="liquid-glass"] .admin-exit {
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.15),
+    inset 0 -1px 1px rgba(0,0,0,0.4);
+  transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+}
+[data-theme="liquid-glass"] .admin-btn:hover,
+[data-theme="liquid-glass"] .theme-btn:hover,
+[data-theme="liquid-glass"] .admin-exit:hover {
+  background: rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.25),
+    inset 0 -1px 1px rgba(0,0,0,0.4),
+    0 0 20px rgba(255,255,255,0.03);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -68,27 +250,40 @@
   50%      { transform: translateY(-4px); }
 }
 @keyframes launchBurst {
-  0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); filter: brightness(1); }
-  25%  { transform: scale(1.04) translateY(-8px); box-shadow: 0 0 40px 10px rgba(255,255,255,0.25), 0 20px 60px rgba(255,255,255,0.15); filter: brightness(1.3); }
-  55%  { transform: scale(1.01) translateY(-5px); box-shadow: 0 0 80px 30px rgba(255,255,255,0.4), 0 30px 100px rgba(255,255,255,0.3); filter: brightness(1.6); }
-  80%  { transform: scale(0.96); box-shadow: 0 0 120px 60px rgba(255,255,255,0.6); filter: brightness(2); }
-  100% { transform: scale(0.9); box-shadow: 0 0 200px 100px rgba(255,255,255,0); opacity: 0; filter: brightness(3); }
-}
-@keyframes rippleOut {
-  0%   { transform: scale(0.5); opacity: 0.8; }
-  100% { transform: scale(3.5); opacity: 0; }
+  0%   { transform: scale(1); filter: brightness(1); }
+  40%  { transform: scale(1.04) translateY(-6px); filter: brightness(1.2); }
+  100% { transform: scale(0.92); opacity: 0; filter: brightness(1.4); }
 }
 @keyframes scanLine {
   0%   { transform: translateY(-100%); }
   100% { transform: translateY(100vh); }
 }
-@keyframes toggleSlide {
-  from { left: var(--from); }
-  to   { left: var(--to); }
+@keyframes particleFloat {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(100px) scale(0.5); opacity: 0; }
 }
-@keyframes counterCount {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes numPop {
+  0%   { opacity: 0; transform: translateY(6px) scale(0.6); }
+  60%  { opacity: 1; transform: translateY(-2px) scale(1.1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes spinGlow {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes toastOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(-10px) scale(0.9); }
+}
+@keyframes focusGlow {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+  50%      { box-shadow: 0 0 30px 8px rgba(255,255,255,0.08); }
 }
 
 html { scroll-behavior: smooth; }
@@ -104,20 +299,40 @@ body {
   padding: 64px 24px 100px;
   overflow-x: hidden;
   position: relative;
+  cursor: default;
+}
+
+/* ── PARTICLES ── */
+.particle-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  animation: particleFloat linear infinite;
 }
 
 /* ── LAYERED AMBIENT BACKGROUND ── */
 .bg-layer {
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: -3;
   overflow: hidden;
   pointer-events: none;
 }
 .bg-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(50px);
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 .bg-orb-1 {
   width: 700px; height: 700px;
@@ -140,7 +355,7 @@ body {
 .bg-grid {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
   background-image:
     linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
@@ -188,15 +403,28 @@ header {
   margin-bottom: 16px;
   opacity: 0;
   animation: subtitleReveal 0.6s ease 0.3s forwards;
+  transition: border-color 0.8s ease;
 }
-.logo-badge::before {
-  content: '';
+.logo-badge .badge-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 8px #4ade80;
   flex-shrink: 0;
+  transition: background 0.8s ease, box-shadow 0.8s ease;
 }
+.badge-dot.loading {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444, 0 0 16px rgba(239,68,68,0.3);
+}
+.badge-dot.online {
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80, 0 0 16px rgba(74,222,128,0.3);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%,100% { box-shadow: 0 0 6px #4ade80, 0 0 12px rgba(74,222,128,0.2); transform: scale(1); }
+  50%      { box-shadow: 0 0 14px #4ade80, 0 0 28px rgba(74,222,128,0.4), 0 0 50px rgba(74,222,128,0.15); transform: scale(1.3); }
+}
+.logo-badge.loaded { border-color: rgba(74,222,128,0.2); }
 
 h1 {
   font-size: clamp(3rem, 6vw, 5rem);
@@ -239,6 +467,9 @@ h1 {
 .toggle-wrap {
   opacity: 0;
   animation: subtitleReveal 0.6s ease 0.7s forwards;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 .toggle-group {
   display: flex;
@@ -248,6 +479,12 @@ h1 {
   border: 1px solid var(--border);
   position: relative;
   gap: 2px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+body.is-dragging, body.is-dragging * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
 }
 .toggle-btn {
   padding: 12px 28px;
@@ -266,6 +503,13 @@ h1 {
   gap: 8px;
   letter-spacing: 0.04em;
   white-space: nowrap;
+  position: relative;
+}
+.toggle-btn svg {
+  transition: transform 0.3s ease;
+}
+.toggle-btn:hover svg {
+  transform: scale(1.15);
 }
 .toggle-btn:hover { color: var(--text); }
 .toggle-btn.active { color: #0a0a12; font-weight: 700; }
@@ -275,9 +519,10 @@ h1 {
   background: #ffffff;
   border-radius: 99px;
   top: 5px;
-  transition: left 0.4s cubic-bezier(0.32,0.72,0,1), width 0.4s cubic-bezier(0.32,0.72,0,1);
+  transition: left 0.5s cubic-bezier(0.32,0.72,0,1), width 0.5s cubic-bezier(0.32,0.72,0,1), transform 0.35s cubic-bezier(0.32,0.72,0,1);
   box-shadow: 0 0 25px rgba(255,255,255,0.5), 0 0 60px rgba(255,255,255,0.2);
   z-index: 1;
+  user-select: none;
 }
 
 /* ── GRID ── */
@@ -301,9 +546,10 @@ h1 {
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.55s cubic-bezier(0.23,1,0.32,1),
-              border-color 0.4s ease,
-              background 0.4s ease;
+              border-color 0.55s ease,
+              background 0.55s ease;
   opacity: 0;
+  will-change: transform;
 }
 .card::before {
   content: '';
@@ -314,7 +560,6 @@ h1 {
   opacity: 0;
   transition: opacity 0.4s ease;
 }
-/* shimmer sweep */
 .card::after {
   content: '';
   position: absolute;
@@ -331,19 +576,17 @@ h1 {
   animation: shimmerSweep 1.2s ease forwards;
 }
 
-/* glow ring overlay */
 .card-glow {
   position: absolute;
   inset: -2px;
   border-radius: 30px;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.55s ease;
   pointer-events: none;
   z-index: 0;
 }
 .card:hover .card-glow { opacity: 1; animation: borderGlow 2.5s ease-in-out infinite; }
 
-/* noise grain on card */
 .card-grain {
   position: absolute;
   inset: 0;
@@ -389,13 +632,15 @@ h1 {
   position: relative;
   z-index: 1;
   transition: transform 0.4s ease;
+  animation: iconFloat 2s ease-in-out infinite;
+  animation-play-state: paused;
 }
 .card:hover .card-icon-wrap {
   transform: translateY(-3px);
   box-shadow: 0 8px 30px rgba(255,255,255,0.15);
 }
 .card:hover .card-icon {
-  animation: iconFloat 2s ease-in-out infinite;
+  animation-play-state: running;
 }
 
 .card-title-wrap { display: flex; flex-direction: column; gap: 3px; }
@@ -451,7 +696,6 @@ h1 {
   letter-spacing: 0.08em;
 }
 
-/* Card hover state */
 .card:hover {
   transform: translateY(-16px) scale(1.015);
   border-color: rgba(255,255,255,0.14);
@@ -459,7 +703,7 @@ h1 {
 }
 .card:hover::before { opacity: 1; }
 
-/* Color variants per card */
+/* ── CARD COLORS ── */
 .card-chat   .card-icon-wrap { background: linear-gradient(135deg, #1a1a3a, #2a1a4a); }
 .card-music  .card-icon-wrap { background: linear-gradient(135deg, #1a2a1a, #0a2a20); }
 .card-cs     .card-icon-wrap { background: linear-gradient(135deg, #2a1a1a, #3a1a0a); }
@@ -487,22 +731,55 @@ h1 {
 .card-print  .card-icon { color: #2dd4bf; }
 .card-sender .card-icon { color: #f472b6; }
 
-/* Launch animation */
+/* ── LAUNCH ANIMATION ── */
 .card.launching {
   pointer-events: none;
-  animation: launchBurst 1.2s cubic-bezier(0.23,1,0.32,1) forwards;
+  animation: launchBurst 0.9s cubic-bezier(0.23,1,0.32,1) forwards;
 }
-.ripple {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 28px;
-  border: 2px solid rgba(255,255,255,0.6);
-  animation: rippleOut 1s ease forwards;
-  top: 0; left: 0;
-  z-index: 10;
+
+/* ── TOAST NOTIFICATION ── */
+.toast-container {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
   pointer-events: none;
 }
+.toast {
+  padding: 12px 24px;
+  border-radius: 14px;
+  background: rgba(15,15,24,0.92);
+  border: 1px solid var(--border-hover);
+  backdrop-filter: blur(20px);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toastIn 0.4s cubic-bezier(0.23,1,0.32,1) forwards;
+  pointer-events: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+.toast.removing {
+  animation: toastOut 0.3s cubic-bezier(0.23,1,0.32,1) forwards;
+}
+.toast-icon {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.7rem;
+}
+.toast-icon.success { background: rgba(74,222,128,0.2); color: #4ade80; }
+.toast-icon.fallback { background: rgba(251,191,36,0.2); color: #fbbf24; }
 
 /* ── FOOTER ── */
 .footer {
@@ -528,9 +805,10 @@ h1 {
   width: 4px; height: 4px;
   border-radius: 50%;
   background: var(--muted2);
+  transition: opacity 0.5s ease;
 }
 
-/* Card entrance delays */
+/* ── CARD ENTRANCE DELAYS ── */
 .card:nth-child(1) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 0.55s forwards; }
 .card:nth-child(2) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 0.65s forwards; }
 .card:nth-child(3) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 0.75s forwards; }
@@ -550,9 +828,398 @@ h1 {
   body { padding: 40px 16px 80px; }
   .grid { grid-template-columns: 1fr; gap: 16px; }
 }
+
+/* ── ADMIN BUTTON ── */
+.admin-btn {
+  position: relative;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s ease;
+  flex-shrink: 0;
+  opacity: 0;
+  animation: subtitleReveal 0.6s ease 0.7s forwards;
+}
+.admin-btn:hover {
+  border-color: rgba(255,255,255,0.2);
+  color: var(--text);
+  transform: rotate(30deg);
+  box-shadow: 0 0 20px rgba(255,255,255,0.08);
+}
+.admin-btn svg { transition: transform 0.35s ease; }
+.admin-btn:hover svg { transform: scale(1.1); }
+
+/* ── THEME BUTTON ── */
+.theme-btn {
+  position: relative;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s ease;
+  flex-shrink: 0;
+  opacity: 0;
+  animation: subtitleReveal 0.6s ease 0.7s forwards;
+}
+.theme-btn:hover {
+  border-color: rgba(255,255,255,0.2);
+  color: var(--text);
+  box-shadow: 0 0 20px rgba(255,255,255,0.08);
+}
+.theme-btn .theme-icon {
+  transition: transform 0.5s ease;
+}
+.theme-btn:hover .theme-icon {
+  transform: rotate(90deg);
+}
+[data-theme="liquid-glass"] .theme-btn .theme-icon {
+  transform: rotate(180deg);
+}
+
+/* ── AUTH MODAL ── */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.auth-overlay.open { opacity: 1; pointer-events: auto; }
+.auth-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 48px 44px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  overflow: hidden;
+  transform: scale(0.92) translateY(20px);
+  transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+  box-shadow: 0 0 0 0 rgba(255,255,255,0);
+}
+.auth-overlay.open .auth-modal { transform: scale(1) translateY(0); }
+.auth-modal::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 30px;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.15), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+  animation: borderGlow 2.5s ease-in-out infinite;
+}
+.auth-modal:focus-within::before { opacity: 1; }
+.auth-modal-inner { position: relative; z-index: 1; }
+.auth-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+}
+.auth-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.auth-field label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.auth-input {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.auth-input:focus {
+  border-color: rgba(255,255,255,0.2);
+  box-shadow: 0 0 20px rgba(255,255,255,0.05);
+}
+.auth-input::placeholder { color: var(--muted2); }
+.auth-submit {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  margin-top: 8px;
+  letter-spacing: 0.04em;
+}
+.auth-submit:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255,255,255,0.08);
+}
+.auth-error {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: #ef4444;
+  text-align: center;
+  margin-top: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.auth-error.show { opacity: 1; }
+.auth-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  background: none;
+  border: none;
+  color: var(--muted2);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.25s ease;
+  z-index: 2;
+  padding: 4px;
+}
+.auth-close:hover { color: var(--text); }
+
+/* ── ADMIN PANEL ── */
+.admin-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: var(--bg);
+  overflow-y: auto;
+  overflow-x: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  padding: 40px 32px 60px;
+}
+.admin-overlay.open { opacity: 1; pointer-events: auto; }
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.admin-header h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+.admin-header-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--muted2);
+  letter-spacing: 0.12em;
+  margin-top: 4px;
+}
+.admin-exit {
+  padding: 10px 24px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.admin-exit:hover {
+  border-color: rgba(255,255,255,0.2);
+  color: var(--text);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255,255,255,0.06);
+}
+
+/* ── STATS GRID ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px 22px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.stat-card:hover {
+  border-color: rgba(255,255,255,0.1);
+  transform: translateY(-3px);
+}
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--muted2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.stat-value {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-top: 6px;
+  line-height: 1;
+}
+
+/* ── SESSIONS TABLE ── */
+.admin-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.admin-table-scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 520px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted2) transparent;
+}
+.admin-table-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+.admin-table-scroll::-webkit-scrollbar-track { background: transparent; }
+.admin-table-scroll::-webkit-scrollbar-thumb { background: var(--muted2); border-radius: 99px; }
+.admin-table-scroll::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  min-width: 700px;
+}
+.admin-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--muted2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+.admin-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: background 0.25s ease;
+}
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table tr:hover td { background: rgba(255,255,255,0.02); }
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-family: 'DM Mono', monospace;
+}
+.status-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+}
+.status-dot.online { background: #4ade80; box-shadow: 0 0 6px #4ade80; }
+.status-dot.offline { background: var(--muted2); }
+.session-ip {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.session-country {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+}
+.session-actions {
+  font-size: 0.75rem;
+  color: var(--muted);
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admin-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted2);
+  font-size: 0.85rem;
+}
+.admin-empty-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  opacity: 0.3;
+}
+
+/* ── TABLE ROW ENTRANCE ── */
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.admin-table tbody tr {
+  animation: rowIn 0.35s ease forwards;
+}
+
+@media (max-width: 768px) {
+  .auth-modal { padding: 36px 28px; margin: 0 16px; }
+  .admin-overlay { padding: 24px 16px 40px; }
+  .admin-header h2 { font-size: 1.4rem; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .admin-table { font-size: 0.75rem; }
+  .admin-table th, .admin-table td { padding: 12px 14px; }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
+
+<div class="particle-container" id="particles"></div>
 
 <div class="bg-layer">
   <div class="bg-orb bg-orb-1"></div>
@@ -565,7 +1232,7 @@ h1 {
 <div class="container">
   <header>
     <div class="header-left">
-      <div class="logo-badge">v2.0 • online</div>
+      <div class="logo-badge" id="statusBadge"><span class="badge-dot loading" id="statusDot"></span>v2.1 • <span id="statusText">загрузка</span></div>
       <h1>VENUSZP</h1>
       <div class="subtitle">Единый портал</div>
     </div>
@@ -582,6 +1249,12 @@ h1 {
         </button>
         <div class="toggle-slider" id="slider"></div>
       </div>
+      <button class="admin-btn" id="adminBtn" aria-label="Admin">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <button class="theme-btn" id="themeBtn" aria-label="Theme">
+        <svg class="theme-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zM12 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zM5.64 5.64a1 1 0 0 1 1.42 0l.7.7a1 1 0 1 1-1.42 1.42l-.7-.7a1 1 0 0 1 0-1.42zM16.24 16.24a1 1 0 0 1 1.42 0l.7.7a1 1 0 1 1-1.42 1.42l-.7-.7a1 1 0 0 1 0-1.42zM3 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zM18 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1zM5.64 18.36a1 1 0 0 1 0-1.42l.7-.7a1 1 0 1 1 1.42 1.42l-.7.7a1 1 0 0 1-1.42 0zM16.24 7.76a1 1 0 0 1 0-1.42l.7-.7a1 1 0 1 1 1.42 1.42l-.7.7a1 1 0 0 1-1.42 0z"/></svg>
+      </button>
     </div>
   </header>
 
@@ -781,73 +1454,674 @@ h1 {
   </div>
 </div>
 
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <button class="auth-close" id="authClose">&times;</button>
+    <div class="auth-modal-inner">
+      <div class="auth-title">Доступ</div>
+      <div class="auth-sub">Авторизация администратора</div>
+      <div class="auth-field">
+        <label>Логин</label>
+        <input class="auth-input" id="authLogin" type="text" placeholder="Введите логин" autocomplete="off">
+      </div>
+      <div class="auth-field">
+        <label>Пароль</label>
+        <input class="auth-input" id="authPass" type="password" placeholder="Введите пароль">
+      </div>
+      <button class="auth-submit" id="authSubmit">Войти</button>
+      <div class="auth-error" id="authError">Неверный логин или пароль</div>
+    </div>
+  </div>
+</div>
+
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-header">
+    <div>
+      <h2>Админ-панель</h2>
+      <div class="admin-header-sub">Аналитика сессий • VENUSZP</div>
+    </div>
+    <button class="admin-exit" id="adminExit">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      Выйти
+    </button>
+  </div>
+
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card"><div class="stat-label">Всего визитов</div><div class="stat-value" id="statTotal">—</div></div>
+    <div class="stat-card"><div class="stat-label">Уникальных IP</div><div class="stat-value" id="statUnique">—</div></div>
+    <div class="stat-card"><div class="stat-label">Топ страна</div><div class="stat-value" id="statCountry">—</div></div>
+    <div class="stat-card"><div class="stat-label">Топ карточка</div><div class="stat-value" id="statCard">—</div></div>
+  </div>
+
+  <div class="admin-table-wrap">
+    <div class="admin-table-scroll" id="tableScroll">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Страна</th>
+            <th>IP</th>
+            <th>Устройство</th>
+            <th>Браузер / ОС</th>
+            <th>Статус</th>
+            <th>Последние действия</th>
+          </tr>
+        </thead>
+        <tbody id="sessionsBody">
+          <tr><td colspan="6"><div class="admin-empty"><div class="admin-empty-icon">&#9678;</div>Загрузка данных...</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <script>
-// Toggle logic
-let mode = "_blank";
+
+// ─── PARTICLES ───
+(() => {
+  const container = document.getElementById('particles');
+  const count = Math.min(30, Math.floor(window.innerWidth / 40));
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = (Math.random() * 100) + '%';
+    p.style.bottom = '-10px';
+    p.style.width = p.style.height = (1.5 + Math.random() * 2.5) + 'px';
+    p.style.animationDuration = (12 + Math.random() * 20) + 's';
+    p.style.animationDelay = (Math.random() * 20) + 's';
+    p.style.opacity = 0.1 + Math.random() * 0.3;
+    container.appendChild(p);
+  }
+})();
+
+// ─── DRAGGABLE TOGGLE ───
+let mode = '_blank';
 const slider = document.getElementById('slider');
 const btns = document.querySelectorAll('.toggle-btn');
+const toggleGrp = document.getElementById('toggleGroup');
+let isDragging = false;
+let justDragged = false;
+let startMouseX = 0;
+let startSliderLeft = 0;
 
+function getBtnLeft(btn) {
+  const grpRect = toggleGrp.getBoundingClientRect();
+  const btnRect = btn.getBoundingClientRect();
+  return btnRect.left - grpRect.left - 5;
+}
 function updateSlider(activeBtn) {
-  const grp = document.getElementById('toggleGroup');
-  const grpRect = grp.getBoundingClientRect();
-  const btnRect = activeBtn.getBoundingClientRect();
-  slider.style.left = (btnRect.left - grpRect.left - 5) + 'px';
-  slider.style.width = (btnRect.width + 10) + 'px';
+  slider.style.left = getBtnLeft(activeBtn) + 'px';
+  slider.style.width = (activeBtn.offsetWidth + 10) + 'px';
+}
+function snapToNearest(clientX) {
+  let nearest = btns[0], nearestDist = Infinity;
+  btns.forEach(btn => {
+    const rect = btn.getBoundingClientRect();
+    const dist = Math.abs(clientX - (rect.left + rect.width / 2));
+    if (dist < nearestDist) { nearestDist = dist; nearest = btn; }
+  });
+  return nearest;
+}
+function setActive(btn) {
+  btns.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  mode = btn.dataset.mode;
+  window.__track({ type: 'toggle', mode: mode });
 }
 
-// Init slider position
 setTimeout(() => updateSlider(btns[0]), 50);
 window.addEventListener('resize', () => {
   const active = document.querySelector('.toggle-btn.active');
   if (active) updateSlider(active);
 });
 
+// Mousedown on group — detect if on slider to start drag
+toggleGrp.addEventListener('mousedown', e => {
+  const sRect = slider.getBoundingClientRect();
+  if (e.clientX >= sRect.left && e.clientX <= sRect.right &&
+      e.clientY >= sRect.top && e.clientY <= sRect.bottom) {
+    e.preventDefault();
+    document.body.classList.add('is-dragging');
+    isDragging = true;
+    startMouseX = e.clientX;
+    startSliderLeft = sRect.left;
+    slider.style.transition = 'transform 0.2s ease';
+    slider.style.transform = 'scale(1.12)';
+  }
+});
+
+// Button click (fires only if not dragged)
 btns.forEach(btn => {
   btn.addEventListener('click', () => {
-    btns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    mode = btn.dataset.mode;
+    if (isDragging || justDragged) return;
+    setActive(btn);
     updateSlider(btn);
   });
 });
 
-// Card click with launch animation
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  const grpRect = toggleGrp.getBoundingClientRect();
+  const sRect = slider.getBoundingClientRect();
+  const dx = e.clientX - startMouseX;
+  let x = startSliderLeft + dx - grpRect.left - 5;
+  const minX = getBtnLeft(btns[0]);
+  const maxX = getBtnLeft(btns[btns.length - 1]) + btns[btns.length - 1].offsetWidth + 10 - sRect.width;
+  x = Math.max(minX, Math.min(maxX, x));
+  slider.style.transition = 'transform 0.2s ease';
+  slider.style.left = x + 'px';
+});
+
+document.addEventListener('mouseup', e => {
+  if (!isDragging) return;
+  document.body.classList.remove('is-dragging');
+  isDragging = false;
+  justDragged = true;
+  slider.style.transform = 'scale(1)';
+  slider.style.transition = 'left 0.4s cubic-bezier(0.32,0.72,0,1), width 0.4s cubic-bezier(0.32,0.72,0,1), transform 0.4s cubic-bezier(0.32,0.72,0,1)';
+  const nearest = snapToNearest(e.clientX);
+  setActive(nearest);
+  updateSlider(nearest);
+  setTimeout(() => { slider.style.transition = ''; justDragged = false; }, 120);
+});
+
+// ─── TOAST SYSTEM ───
+function showToast(message, type) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `
+    <div class="toast-icon ${type}">${type === 'success' ? '&#10003;' : '&#9888;'}</div>
+    <span>${message}</span>
+  `;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('removing');
+    setTimeout(() => toast.remove(), 300);
+  }, 2500);
+}
+
+// ─── SMART NAVIGATION WITH FALLBACK ───
+function navigate(url, preferredMode) {
+  // Try the preferred mode first
+  if (preferredMode === '_blank') {
+    try {
+      const win = window.open(url, '_blank');
+      if (win && !win.closed && typeof win.closed !== 'undefined') {
+        showToast('Открываем в новом окне...', 'success');
+        return true;
+      }
+    } catch(_) {}
+    // Fallback: popup blocked or failed → try _self
+    showToast('Блокировка всплывающих окон → открываем здесь', 'fallback');
+    window.location.href = url;
+    return true;
+  }
+
+  if (preferredMode === '_self') {
+    window.location.href = url;
+    return true;
+  }
+
+  // Unknown mode, just go
+  window.location.href = url;
+  return true;
+}
+
+// ─── CARD CLICK + STRETCH ───
+let stretchData = null;
+let stretchEnded = false;
+
 document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('click', function(e) {
     e.preventDefault();
+    if (stretchData || stretchEnded) return;
     if (this.classList.contains('launching')) return;
 
     const url = this.getAttribute('href');
 
-    // Add ripple
-    const ripple = document.createElement('div');
-    ripple.className = 'ripple';
-    this.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 1100);
+    if (mode === '_blank') this.classList.add('launching');
 
-    // Launch
-    this.classList.add('launching');
+    navigate(url, mode);
+    window.__track({ type: 'card', target: this.classList });
 
     setTimeout(() => {
-      window.open(url, mode);
-      setTimeout(() => {
-        this.classList.remove('launching');
-      }, 500);
-    }, 1100);
+      this.classList.remove('launching');
+    }, 1000);
   });
 
-  // Tilt on mouse move
-  card.addEventListener('mousemove', function(e) {
+  // ─── STRETCH ON HOLD ───
+  card.setAttribute('draggable', 'false');
+  card.addEventListener('mousedown', function(e) {
     const rect = this.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (e.clientX - cx) / (rect.width / 2);
-    const dy = (e.clientY - cy) / (rect.height / 2);
-    this.style.transform = `translateY(-16px) scale(1.015) perspective(600px) rotateX(${-dy * 4}deg) rotateY(${dx * 4}deg)`;
+    stretchData = {
+      el: this,
+      startX: e.clientX,
+      startY: e.clientY,
+      ox: e.clientX - rect.left,
+      oy: e.clientY - rect.top,
+      w: rect.width,
+      h: rect.height,
+      moved: false
+    };
   });
+  card.addEventListener('dragstart', e => e.preventDefault());
+  card.addEventListener('contextmenu', e => e.preventDefault());
+
+  // ─── MAGNETIC 3D TILT ───
+  let tiltRaf = null;
+  card.addEventListener('mousemove', function(e) {
+    if (this.classList.contains('launching')) return;
+    if (stretchData && stretchData.el === this) {
+      if (tiltRaf) { cancelAnimationFrame(tiltRaf); tiltRaf = null; }
+      return;
+    }
+    this.style.transition = 'none';
+    if (tiltRaf) cancelAnimationFrame(tiltRaf);
+    tiltRaf = requestAnimationFrame(() => {
+      const rect = this.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      const tiltX = -dy * 5;
+      const tiltY = dx * 5;
+      const shadowX = dx * 12;
+      const shadowY = dy * 12;
+      this.style.transform = `translateY(-16px) scale(1.015) perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+      this.style.boxShadow = `${-shadowX}px ${-shadowY}px 40px rgba(255,255,255,0.04)`;
+      tiltRaf = null;
+    });
+  });
+
   card.addEventListener('mouseleave', function() {
+    if (stretchData && stretchData.el === this) return;
+    if (tiltRaf) { cancelAnimationFrame(tiltRaf); tiltRaf = null; }
+    this.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1), box-shadow 0.6s ease';
     this.style.transform = '';
+    this.style.boxShadow = '';
+    const el = this;
+    el.addEventListener('transitionend', function clean() {
+      el.style.transition = '';
+      el.removeEventListener('transitionend', clean);
+    }, { once: true });
   });
+});
+
+// ─── DOCUMENT STRETCH TRACKING ───
+document.addEventListener('mousemove', function(e) {
+  if (!stretchData) return;
+  const el = stretchData.el;
+  const dx = (e.clientX - stretchData.startX) / stretchData.w;
+  const dy = (e.clientY - stretchData.startY) / stretchData.h;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  if (dist > 0.02) stretchData.moved = true;
+  if (dist < 0.02 && !stretchData.moved) return;
+  const sx = dx >= 0 ? 1 + dx * 0.35 : 1 + Math.abs(dx) * 0.2;
+  const sy = dy >= 0 ? 1 + dy * 0.2 : 1 + Math.abs(dy) * 0.12;
+  const skx = dx * 4;
+  const sky = dy * 3;
+  el.style.transition = 'none';
+  el.style.transform = `scale(${sx}, ${sy}) skew(${skx}deg, ${sky}deg)`;
+  el.style.boxShadow = `${dx * 20}px ${dy * 20}px 50px rgba(255,255,255,0.06)`;
+});
+
+// ─── GLOBAL RELEASE ───
+document.addEventListener('mouseup', () => {
+  if (!stretchData) return;
+  const el = stretchData.el;
+  const moved = stretchData.moved;
+  stretchData = null;
+  if (!moved) { stretchEnded = false; return; }
+  stretchEnded = true;
+  el.style.transition = 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.7s ease';
+  el.style.transform = '';
+  el.style.boxShadow = '';
+  const done = () => { el.style.transition = ''; el.removeEventListener('transitionend', done); stretchEnded = false; };
+  el.addEventListener('transitionend', done, { once: true });
+  setTimeout(() => { stretchEnded = false; }, 120);
+});
+
+// ─── FOOTER DOTS ANIMATION ───
+(() => {
+  const dots = document.querySelectorAll('.footer-dot');
+  let i = 0;
+  setInterval(() => {
+    dots.forEach((d, idx) => {
+      const dist = Math.abs(idx - i);
+      d.style.opacity = Math.max(0.15, 1 - dist * 0.35);
+    });
+    i = (i + 1) % dots.length;
+  }, 1200);
+})();
+
+// ─── KEYBOARD SUPPORT ───
+document.addEventListener('keydown', e => {
+  if (/^(input|textarea|select)$/i.test(e.target.tagName)) return;
+  if (e.key === '1' || e.key === '2') {
+    const idx = parseInt(e.key) - 1;
+    if (btns[idx]) btns[idx].click();
+  }
+  const num = parseInt(e.key);
+  if (num >= 1 && num <= 8) {
+    const cards = document.querySelectorAll('.card');
+    if (cards[num - 1]) { cards[num - 1].click(); window.__track({ type: 'key', key: e.key }); }
+  }
+});
+
+// ─── STATUS INDICATOR: RED → GREEN ON FULL LOAD ───
+function setOnline() {
+  const dot = document.getElementById('statusDot');
+  const text = document.getElementById('statusText');
+  const badge = document.getElementById('statusBadge');
+  dot.className = 'badge-dot online';
+  text.textContent = 'online';
+  badge.classList.add('loaded');
+}
+
+// Only switch to green after everything is fully loaded (fonts, images, etc.)
+if (document.readyState === 'complete') {
+  setOnline();
+} else {
+  window.addEventListener('load', () => {
+    // Small delay so entrance animations finish looking smooth
+    setTimeout(setOnline, 600);
+  });
+}
+
+console.log('VENUSZP Portal v2.1 • Все системы работают');
+
+// ─── ANALYTICS STUB (overridden after Firebase loads) ───
+window.__track = () => {};
+window.__sessionMeta = {
+  ua: navigator.userAgent,
+  platform: navigator.platform || '',
+  screen: screen.width + 'x' + screen.height,
+  lang: navigator.language,
+  tz: Intl.DateTimeFormat().resolvedOptions().timeZone
+};
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════
+// SIMULATED .env — replace with import.meta.env / process.env in production
+// See .env file on disk for the raw variable mapping.
+// ═══════════════════════════════════════════════════════════
+const ENV = {
+  FIREBASE: {
+    apiKey: "AIzaSyBTcH3_tri2L7AHLh1e-YD-0s-QSthuE6Q",
+    authDomain: "disk-c98ee.firebaseapp.com",
+    databaseURL: "https://disk-c98ee-default-rtdb.firebaseio.com",
+    projectId: "disk-c98ee",
+    storageBucket: "disk-c98ee.firebasestorage.app",
+    messagingSenderId: "59577059636",
+    appId: "1:59577059636:web:e98f456d054cc360747d61"
+  },
+  ADMIN: {
+    login: "venus",
+    password: "venus123"
+  }
+};
+// ═══════════════════════════════════════════════════════════
+
+// ─── FIREBASE INIT ───
+firebase.initializeApp(ENV.FIREBASE);
+const db = firebase.firestore();
+
+// ─── SESSION MANAGEMENT ───
+const sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+const actions = [];
+let sessionDocRef = null;
+
+function getDeviceType() {
+  const ua = navigator.userAgent;
+  if (/mobile|android|iphone|ipad|ipod/i.test(ua)) return 'mobile';
+  if (/tablet|ipad/i.test(ua)) return 'tablet';
+  return 'desktop';
+}
+
+function getBrowser() {
+  const ua = navigator.userAgent;
+  if (ua.includes('Firefox')) return 'Firefox';
+  if (ua.includes('Chrome') && !ua.includes('Edg')) return 'Chrome';
+  if (ua.includes('Edg')) return 'Edge';
+  if (ua.includes('Safari') && !ua.includes('Chrome')) return 'Safari';
+  return 'Other';
+}
+
+function getOS() {
+  const ua = navigator.userAgent;
+  if (ua.includes('Windows')) return 'Windows';
+  if (ua.includes('Mac')) return 'macOS';
+  if (ua.includes('Linux') && !ua.includes('Android')) return 'Linux';
+  if (ua.includes('Android')) return 'Android';
+  if (/(iPhone|iPad|iPod)/.test(ua)) return 'iOS';
+  return 'Other';
+}
+
+// ─── TRACK ACTION ───
+const pendingActions = [];
+window.__track = function(data) {
+  data.ts = Date.now();
+  pendingActions.push(data);
+  actions.push(data);
+  if (sessionDocRef) {
+    const safe = actions.map(a => ({ type: a.type || '', target: a.target || a.mode || a.key || '', ts: a.ts }));
+    sessionDocRef.update({ actions: firebase.firestore.FieldValue.arrayUnion(safe[safe.length - 1]), lastSeen: Date.now() }).catch(() => {});
+  }
+};
+
+// ─── CREATE SESSION ───
+async function createSession() {
+  let geo = { country: '—', city: '—', org: '—', ip: '—' };
+  try {
+    const res = await fetch('https://ip-api.com/json/?fields=country,city,org,query', { signal: AbortSignal.timeout(5000) });
+    const d = await res.json();
+    geo = { country: d.country || '—', city: d.city || '—', org: d.org || '—', ip: d.query || '—' };
+  } catch (_) {}
+
+  const meta = window.__sessionMeta || {};
+  const session = {
+    sessionId,
+    ip: geo.ip,
+    country: geo.country,
+    city: geo.city,
+    org: geo.org,
+    userAgent: meta.ua || '',
+    platform: meta.platform || '',
+    screen: meta.screen || '',
+    lang: meta.lang || '',
+    tz: meta.tz || '',
+    deviceType: getDeviceType(),
+    browser: getBrowser(),
+    os: getOS(),
+    firstSeen: Date.now(),
+    lastSeen: Date.now(),
+    actions: []
+  };
+
+  try {
+    sessionDocRef = await db.collection('analytics_sessions').add(session);
+    // Flush pending
+    while (pendingActions.length) {
+      const a = pendingActions.shift();
+      const entry = { type: a.type || '', target: a.target || a.mode || a.key || '', ts: a.ts };
+      await sessionDocRef.update({ actions: firebase.firestore.FieldValue.arrayUnion(entry), lastSeen: Date.now() }).catch(() => {});
+    }
+    // Heartbeat
+    setInterval(() => {
+      if (sessionDocRef) sessionDocRef.update({ lastSeen: Date.now() }).catch(() => {});
+    }, 30000);
+  } catch (_) {}
+}
+
+createSession();
+
+// ─── ADMIN AUTH ───
+const authOverlay = document.getElementById('authOverlay');
+const adminOverlay = document.getElementById('adminOverlay');
+
+function openAdmin() {
+  if (!sessionStorage.getItem('venuszp_admin')) {
+    authOverlay.classList.add('open');
+    document.getElementById('authLogin').focus();
+  } else {
+    adminOverlay.classList.add('open');
+    adminOverlay.scrollTop = 0;
+    loadAdminPanel();
+  }
+}
+
+document.getElementById('adminBtn').addEventListener('click', openAdmin);
+document.getElementById('authClose').addEventListener('click', () => authOverlay.classList.remove('open'));
+authOverlay.addEventListener('click', e => { if (e.target === authOverlay) authOverlay.classList.remove('open'); });
+document.getElementById('authSubmit').addEventListener('click', () => {
+  const login = document.getElementById('authLogin').value.trim();
+  const pass = document.getElementById('authPass').value.trim();
+  const err = document.getElementById('authError');
+  if (login === ENV.ADMIN.login && pass === ENV.ADMIN.password) {
+    sessionStorage.setItem('venuszp_admin', '1');
+    authOverlay.classList.remove('open');
+    adminOverlay.classList.add('open');
+    adminOverlay.scrollTop = 0;
+    loadAdminPanel();
+  } else {
+    err.classList.add('show');
+    setTimeout(() => err.classList.remove('show'), 3000);
+  }
+});
+document.getElementById('authPass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('authSubmit').click();
+});
+document.getElementById('adminExit').addEventListener('click', () => {
+  adminOverlay.classList.remove('open');
+});
+adminOverlay.addEventListener('click', e => {
+  if (e.target === adminOverlay) adminOverlay.classList.remove('open');
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    authOverlay.classList.remove('open');
+    adminOverlay.classList.remove('open');
+  }
+});
+
+// ─── ADMIN PANEL ───
+let unsubSessions = null;
+let cachedSessions = [];
+
+function loadAdminPanel() {
+  if (unsubSessions) { unsubSessions(); unsubSessions = null; }
+
+  unsubSessions = db.collection('analytics_sessions')
+    .orderBy('firstSeen', 'desc')
+    .limit(100)
+    .onSnapshot(snapshot => {
+      cachedSessions = [];
+      snapshot.forEach(doc => cachedSessions.push({ id: doc.id, ...doc.data() }));
+      renderTable();
+      renderStats();
+    }, err => {
+      document.getElementById('sessionsBody').innerHTML =
+        '<tr><td colspan="6"><div class="admin-empty"><div class="admin-empty-icon">&#9888;</div>Ошибка загрузки</div></td></tr>';
+    });
+}
+
+function timeAgo(ts) {
+  if (!ts) return '—';
+  const diff = Date.now() - ts;
+  const min = Math.floor(diff / 60000);
+  if (min < 1) return 'только что';
+  if (min < 60) return min + 'м назад';
+  const h = Math.floor(min / 60);
+  if (h < 24) return h + 'ч назад';
+  return Math.floor(h / 24) + 'д назад';
+}
+
+function getLastActions(sess) {
+  if (!sess.actions || !sess.actions.length) return '—';
+  const acts = sess.actions.slice(-3).map(a => {
+    if (a.type === 'card') return 'Клик: ' + (a.target || '?').replace(/card-?/g, '').toUpperCase();
+    if (a.type === 'toggle') return 'Режим: ' + (a.target === '_blank' ? 'окно' : 'внутри');
+    if (a.type === 'key') return 'Клавиша: ' + a.target;
+    return a.type;
+  }).join(', ');
+  return acts;
+}
+
+function renderTable() {
+  const tbody = document.getElementById('sessionsBody');
+  if (!cachedSessions.length) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="admin-empty"><div class="admin-empty-icon">&#9678;</div>Нет данных</div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = cachedSessions.map(s => {
+    const isOnline = (Date.now() - (s.lastSeen || 0)) < 120000;
+    const flag = s.country && s.country !== '—' ? s.country : '—';
+    return '<tr>' +
+      '<td><span class="session-country">' + esc(flag) + '</span></td>' +
+      '<td><span class="session-ip">' + esc(s.ip || '—') + '</span></td>' +
+      '<td>' + esc(s.deviceType || '—') + '</td>' +
+      '<td>' + esc(s.browser || '—') + ' / ' + esc(s.os || '—') + '</td>' +
+      '<td><span class="status-badge"><span class="status-dot ' + (isOnline ? 'online' : 'offline') + '"></span>' + (isOnline ? 'Online' : timeAgo(s.lastSeen)) + '</span></td>' +
+      '<td><span class="session-actions" title="' + esc(getLastActions(s)) + '">' + esc(getLastActions(s)) + '</span></td>' +
+      '</tr>';
+  }).join('');
+}
+
+function esc(str) {
+  if (typeof str !== 'string') return String(str || '');
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderStats() {
+  const total = cachedSessions.length;
+  const uniqueIPs = new Set(cachedSessions.map(s => s.ip).filter(Boolean)).size;
+  const countryCount = {};
+  const cardClicks = {};
+  cachedSessions.forEach(s => {
+    if (s.country && s.country !== '—') countryCount[s.country] = (countryCount[s.country] || 0) + 1;
+    if (s.actions) s.actions.forEach(a => {
+      if (a.type === 'card' && a.target) {
+        const name = a.target.replace(/card-?/g, '').toUpperCase() || '?';
+        cardClicks[name] = (cardClicks[name] || 0) + 1;
+      }
+    });
+  });
+  const topCountry = Object.keys(countryCount).sort((a, b) => countryCount[b] - countryCount[a])[0] || '—';
+  const topCard = Object.keys(cardClicks).sort((a, b) => cardClicks[b] - cardClicks[a])[0] || '—';
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statUnique').textContent = uniqueIPs;
+  document.getElementById('statCountry').textContent = topCountry;
+  document.getElementById('statCard').textContent = topCard;
+}
+
+// ─── THEME SWITCHER ───
+const themeBtn = document.getElementById('themeBtn');
+const savedTheme = localStorage.getItem('theme') || 'dark';
+if (savedTheme === 'liquid-glass') {
+  document.documentElement.setAttribute('data-theme', 'liquid-glass');
+}
+themeBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  if (current === 'liquid-glass') {
+    html.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    html.setAttribute('data-theme', 'liquid-glass');
+    localStorage.setItem('theme', 'liquid-glass');
+  }
+});
+
+// ─── KEYBOARD SHORTCUT FOR ADMIN ───
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+    e.preventDefault();
+    openAdmin();
+  }
 });
 </script>
 </body>
