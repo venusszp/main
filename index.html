@@ -1535,6 +1535,53 @@ body.is-dragging, body.is-dragging * {
   }
 })();
 
+// ─── TASK QUEUE (Sequential Async Queue) ───
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+function waitForTransition(el, fallback) {
+  return new Promise(resolve => {
+    el.addEventListener('transitionend', resolve, { once: true });
+    setTimeout(resolve, fallback || 700);
+  });
+}
+class TaskQueue {
+  constructor() {
+    this._queues = {};
+  }
+  enqueue(key, fn, isValid) {
+    if (!this._queues[key]) this._queues[key] = { running: false, pending: null };
+    const q = this._queues[key];
+    if (q.running) {
+      q.pending = { fn, isValid };
+      return;
+    }
+    q.running = true;
+    this._exec(key, fn, isValid);
+  }
+  async _exec(key, fn, isValid) {
+    if (typeof isValid === 'function' && !isValid()) {
+      this._done(key);
+      return;
+    }
+    try { await fn(); }
+    catch (e) { console.error(e); }
+    this._done(key);
+  }
+  _done(key) {
+    const q = this._queues[key];
+    if (!q) return;
+    if (q.pending) {
+      const { fn, isValid } = q.pending;
+      q.pending = null;
+      this._exec(key, fn, isValid);
+    } else {
+      q.running = false;
+    }
+  }
+}
+const taskQueue = new TaskQueue();
+
 // ─── DRAGGABLE TOGGLE ───
 let mode = '_blank';
 const slider = document.getElementById('slider');
@@ -1595,8 +1642,11 @@ toggleGrp.addEventListener('mousedown', e => {
 btns.forEach(btn => {
   btn.addEventListener('click', () => {
     if (isDragging || justDragged) return;
-    setActive(btn);
-    updateSlider(btn);
+    taskQueue.enqueue('toggle', async () => {
+      setActive(btn);
+      updateSlider(btn);
+      await waitForTransition(slider);
+    }, () => !btn.classList.contains('active'));
   });
 });
 
@@ -1621,9 +1671,13 @@ document.addEventListener('mouseup', e => {
   slider.style.transform = 'scale(1)';
   slider.style.transition = 'left 0.4s cubic-bezier(0.32,0.72,0,1), width 0.4s cubic-bezier(0.32,0.72,0,1), transform 0.4s cubic-bezier(0.32,0.72,0,1)';
   const nearest = snapToNearest(e.clientX);
-  setActive(nearest);
   updateSlider(nearest);
-  setTimeout(() => { slider.style.transition = ''; justDragged = false; }, 120);
+  taskQueue.enqueue('toggle', async () => {
+    setActive(nearest);
+    await waitForTransition(slider);
+    slider.style.transition = '';
+    justDragged = false;
+  }, () => true);
 });
 
 // ─── TOAST SYSTEM ───
@@ -1680,15 +1734,19 @@ document.querySelectorAll('.card').forEach(card => {
     if (this.classList.contains('launching')) return;
 
     const url = this.getAttribute('href');
+    const el = this;
 
-    if (mode === '_blank') this.classList.add('launching');
+    taskQueue.enqueue('card', async () => {
+      if (mode === '_blank') el.classList.add('launching');
 
-    navigate(url, mode);
-    window.__track({ type: 'card', target: this.classList });
+      navigate(url, mode);
+      window.__track({ type: 'card', target: el.classList });
 
-    setTimeout(() => {
-      this.classList.remove('launching');
-    }, 1000);
+      if (mode === '_blank') {
+        await sleep(1000);
+        el.classList.remove('launching');
+      }
+    }, () => !el.classList.contains('launching'));
   });
 
   // ─── STRETCH ON HOLD ───
@@ -1964,47 +2022,72 @@ const authOverlay = document.getElementById('authOverlay');
 const adminOverlay = document.getElementById('adminOverlay');
 
 function openAdmin() {
-  if (!sessionStorage.getItem('venuszp_admin')) {
-    authOverlay.classList.add('open');
-    document.getElementById('authLogin').focus();
-  } else {
-    adminOverlay.classList.add('open');
-    adminOverlay.scrollTop = 0;
-    loadAdminPanel();
-  }
+  taskQueue.enqueue('overlay', async () => {
+    if (!sessionStorage.getItem('venuszp_admin')) {
+      authOverlay.classList.add('open');
+      await sleep(200);
+      document.getElementById('authLogin').focus();
+    } else {
+      adminOverlay.classList.add('open');
+      adminOverlay.scrollTop = 0;
+      loadAdminPanel();
+    }
+  }, () => !authOverlay.classList.contains('open') && !adminOverlay.classList.contains('open'));
 }
 
 document.getElementById('adminBtn').addEventListener('click', openAdmin);
-document.getElementById('authClose').addEventListener('click', () => authOverlay.classList.remove('open'));
-authOverlay.addEventListener('click', e => { if (e.target === authOverlay) authOverlay.classList.remove('open'); });
-document.getElementById('authSubmit').addEventListener('click', () => {
-  const login = document.getElementById('authLogin').value.trim();
-  const pass = document.getElementById('authPass').value.trim();
-  const err = document.getElementById('authError');
-  if (login === ENV.ADMIN.login && pass === ENV.ADMIN.password) {
-    sessionStorage.setItem('venuszp_admin', '1');
+document.getElementById('authClose').addEventListener('click', () => {
+  taskQueue.enqueue('overlay', async () => {
     authOverlay.classList.remove('open');
-    adminOverlay.classList.add('open');
-    adminOverlay.scrollTop = 0;
-    loadAdminPanel();
-  } else {
-    err.classList.add('show');
-    setTimeout(() => err.classList.remove('show'), 3000);
+  }, () => authOverlay.classList.contains('open'));
+});
+authOverlay.addEventListener('click', e => {
+  if (e.target === authOverlay) {
+    taskQueue.enqueue('overlay', async () => {
+      authOverlay.classList.remove('open');
+    }, () => authOverlay.classList.contains('open'));
   }
+});
+document.getElementById('authSubmit').addEventListener('click', () => {
+  taskQueue.enqueue('overlay', async () => {
+    const login = document.getElementById('authLogin').value.trim();
+    const pass = document.getElementById('authPass').value.trim();
+    const err = document.getElementById('authError');
+    if (login === ENV.ADMIN.login && pass === ENV.ADMIN.password) {
+      sessionStorage.setItem('venuszp_admin', '1');
+      authOverlay.classList.remove('open');
+      await sleep(400);
+      adminOverlay.classList.add('open');
+      adminOverlay.scrollTop = 0;
+      loadAdminPanel();
+    } else {
+      err.classList.add('show');
+      await sleep(3000);
+      err.classList.remove('show');
+    }
+  }, () => authOverlay.classList.contains('open'));
 });
 document.getElementById('authPass').addEventListener('keydown', e => {
   if (e.key === 'Enter') document.getElementById('authSubmit').click();
 });
 document.getElementById('adminExit').addEventListener('click', () => {
-  adminOverlay.classList.remove('open');
+  taskQueue.enqueue('overlay', async () => {
+    adminOverlay.classList.remove('open');
+  }, () => adminOverlay.classList.contains('open'));
 });
 adminOverlay.addEventListener('click', e => {
-  if (e.target === adminOverlay) adminOverlay.classList.remove('open');
+  if (e.target === adminOverlay) {
+    taskQueue.enqueue('overlay', async () => {
+      adminOverlay.classList.remove('open');
+    }, () => adminOverlay.classList.contains('open'));
+  }
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    authOverlay.classList.remove('open');
-    adminOverlay.classList.remove('open');
+    taskQueue.enqueue('overlay', async () => {
+      authOverlay.classList.remove('open');
+      adminOverlay.classList.remove('open');
+    }, () => authOverlay.classList.contains('open') || adminOverlay.classList.contains('open'));
   }
 });
 
@@ -2105,15 +2188,18 @@ if (savedTheme === 'liquid-glass') {
   document.documentElement.setAttribute('data-theme', 'liquid-glass');
 }
 themeBtn.addEventListener('click', () => {
-  const html = document.documentElement;
-  const current = html.getAttribute('data-theme');
-  if (current === 'liquid-glass') {
-    html.removeAttribute('data-theme');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    html.setAttribute('data-theme', 'liquid-glass');
-    localStorage.setItem('theme', 'liquid-glass');
-  }
+  taskQueue.enqueue('theme', async () => {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    if (current === 'liquid-glass') {
+      html.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      html.setAttribute('data-theme', 'liquid-glass');
+      localStorage.setItem('theme', 'liquid-glass');
+    }
+    await sleep(400);
+  }, () => true);
 });
 
 // ─── KEYBOARD SHORTCUT FOR ADMIN ───
