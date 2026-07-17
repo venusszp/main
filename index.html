@@ -712,6 +712,7 @@ body.is-dragging, body.is-dragging * {
 .card-vide   .card-icon-wrap { background: linear-gradient(135deg, #2a0a2a, #1a0a3a); }
 .card-print  .card-icon-wrap { background: linear-gradient(135deg, #0a2a2a, #0a1a2a); }
 .card-sender .card-icon-wrap { background: linear-gradient(135deg, #3a0a1a, #2a0a2a); }
+.card-decoder .card-icon-wrap { background: linear-gradient(135deg, #0a1a2a, #0a2a1a); }
 
 .card-chat   .card-glow { background: radial-gradient(ellipse at center, rgba(120,80,255,0.35), transparent 70%); }
 .card-music  .card-glow { background: radial-gradient(ellipse at center, rgba(60,200,130,0.3), transparent 70%); }
@@ -721,6 +722,7 @@ body.is-dragging, body.is-dragging * {
 .card-vide   .card-glow { background: radial-gradient(ellipse at center, rgba(200,60,200,0.28), transparent 70%); }
 .card-print  .card-glow { background: radial-gradient(ellipse at center, rgba(60,220,220,0.25), transparent 70%); }
 .card-sender .card-glow { background: radial-gradient(ellipse at center, rgba(236,72,153,0.25), transparent 70%); }
+.card-decoder .card-glow { background: radial-gradient(ellipse at center, rgba(56,189,248,0.25), transparent 70%); }
 
 .card-chat   .card-icon { color: #a78bfa; }
 .card-music  .card-icon { color: #4ade80; }
@@ -730,6 +732,7 @@ body.is-dragging, body.is-dragging * {
 .card-vide   .card-icon { color: #e879f9; }
 .card-print  .card-icon { color: #2dd4bf; }
 .card-sender .card-icon { color: #f472b6; }
+.card-decoder .card-icon { color: #38bdf8; }
 
 /* ── LAUNCH ANIMATION ── */
 .card.launching {
@@ -817,6 +820,7 @@ body.is-dragging, body.is-dragging * {
 .card:nth-child(6) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 1.05s forwards; }
 .card:nth-child(7) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 1.15s forwards; }
 .card:nth-child(8) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 1.25s forwards; }
+.card:nth-child(9) { animation: cardIn 0.7s cubic-bezier(0.23,1,0.32,1) 1.35s forwards; }
 
 @media (max-width: 768px) {
   header { margin-bottom: 48px; }
@@ -1442,6 +1446,29 @@ body.is-dragging, body.is-dragging * {
         </div>
       </div>
     </a>
+
+    <a href="https://dr.venuszp.xyz" class="card card-decoder">
+      <div class="card-glow"></div>
+      <div class="card-grain"></div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/></svg>
+          </div>
+          <div class="card-title-wrap">
+            <span class="card-tag">Декодинг</span>
+            <h3>DECODER</h3>
+          </div>
+        </div>
+        <p class="card-desc">Универсальный декодер — раскодируй текст и данные из разных форматов.</p>
+        <div class="card-footer">
+          <span class="card-num">09</span>
+          <div class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+      </div>
+    </a>
   </div>
 
   <div class="footer">
@@ -1862,7 +1889,7 @@ document.addEventListener('keydown', e => {
     if (btns[idx]) btns[idx].click();
   }
   const num = parseInt(e.key);
-  if (num >= 1 && num <= 8) {
+  if (num >= 1 && num <= 9) {
     const cards = document.querySelectorAll('.card');
     if (cards[num - 1]) { cards[num - 1].click(); window.__track({ type: 'key', key: e.key }); }
   }
